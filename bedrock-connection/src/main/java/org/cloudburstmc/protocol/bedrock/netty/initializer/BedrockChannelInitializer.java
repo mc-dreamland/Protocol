@@ -44,10 +44,10 @@ public abstract class BedrockChannelInitializer<T extends BedrockSession> extend
 
         switch (rakVersion) {
             case 7:
-            case 8:
             case 9:
                 channel.pipeline().addLast(CompressionCodec.NAME, new ZlibCompressionCodec(Zlib.DEFAULT));
                 break;
+            case 8:
             case 10: // Zlib Raw
                 channel.pipeline().addLast(CompressionCodec.NAME, new ZlibCompressionCodec(Zlib.RAW));
                 break;
@@ -68,10 +68,8 @@ public abstract class BedrockChannelInitializer<T extends BedrockSession> extend
             case 11:
             case 10:
             case 9: // Merged & Varint-ified
-                channel.pipeline().addLast(BedrockPacketCodec.NAME, new BedrockPacketCodec_v3());
-                break;
             case 8: // Split-screen support
-                channel.pipeline().addLast(BedrockPacketCodec.NAME, new BedrockPacketCodec_v2());
+                channel.pipeline().addLast(BedrockPacketCodec.NAME, new BedrockPacketCodec_v3());
                 break;
             case 7: // Single byte packet ID
                 channel.pipeline().addLast(BedrockPacketCodec.NAME, new BedrockPacketCodec_v1());
