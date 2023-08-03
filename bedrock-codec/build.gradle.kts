@@ -5,6 +5,8 @@ dependencies {
     api(libs.fastutil.long.`object`.maps)
     api(libs.jose4j)
     api(libs.nbt)
+    api(libs.msgpack)
+    api(libs.gson)
 }
 
 tasks.jar {

@@ -819,4 +819,10 @@ public interface BedrockPacketHandler extends PacketHandler {
     default PacketSignal handle(AgentAnimationPacket packet) {
         return PacketSignal.UNHANDLED;
     }
+    default PacketSignal handle(NeteaseCustomPacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
+    default PacketSignal handle(ConfirmSkinPacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
 }

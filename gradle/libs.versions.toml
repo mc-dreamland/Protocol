@@ -2,6 +2,8 @@
 checkerframework = "3.26.0"
 fastutil = "8.5.3"
 netty = "4.1.84.Final"
+gson = "2.3.1" # Provided by Spigot 1.8.8
+msgpack = "0.6.12"
 
 [libraries]
 checker-qual = { group = "org.checkerframework", name = "checker-qual", version.ref = "checkerframework" }
@@ -20,6 +22,8 @@ natives = { group = "com.nukkitx", name = "natives", version = "1.0.3" }
 math = { group = "org.cloudburstmc.math", name = "immutable", version = "2.0-SNAPSHOT" }
 nbt = { group = "org.cloudburstmc", name = "nbt", version = "3.0.0.Final" }
 lmbda = { group = "org.lanternpowered", name = "lmbda", version = "2.0.0" }
+msgpack = { group = "org.msgpack", name = "msgpack", version.ref = "msgpack" }
+gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 
 snappy = { group = "io.airlift", name = "aircompressor", version = "0.21" }
 

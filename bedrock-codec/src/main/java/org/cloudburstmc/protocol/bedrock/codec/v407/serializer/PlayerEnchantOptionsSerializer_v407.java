@@ -34,6 +34,7 @@ public class PlayerEnchantOptionsSerializer_v407 implements BedrockPacketSeriali
         helper.writeArray(buffer, option.getEnchants0(), this::serializeEnchant);
         helper.writeArray(buffer, option.getEnchants1(), this::serializeEnchant);
         helper.writeArray(buffer, option.getEnchants2(), this::serializeEnchant);
+        helper.writeArray(buffer, option.getEnchants3(), this::serializeEnchant); // Netease
         helper.writeString(buffer, option.getEnchantName());
         VarInts.writeUnsignedInt(buffer, option.getEnchantNetId());
     }
@@ -47,19 +48,26 @@ public class PlayerEnchantOptionsSerializer_v407 implements BedrockPacketSeriali
         helper.readArray(buffer, enchants2, this::deserializeEnchant);
         List<EnchantData> enchants3 = new ObjectArrayList<>();
         helper.readArray(buffer, enchants3, this::deserializeEnchant);
+        // Netease Start
+        List<EnchantData> enchants4 = new ObjectArrayList<>();
+        helper.readArray(buffer, enchants4, this::deserializeEnchant);
+        // Netease End
+
         String enchantName = helper.readString(buffer);
         int enchantNetId = VarInts.readUnsignedInt(buffer);
-        return new EnchantOptionData(cost, primarySlot, enchants1, enchants2, enchants3, enchantName, enchantNetId);
+        return new EnchantOptionData(cost, primarySlot, enchants1, enchants2, enchants3, enchants4, enchantName, enchantNetId);
     }
 
-    protected void serializeEnchant(ByteBuf buffer, EnchantData enchant) {
+    protected void serializeEnchant(ByteBuf buffer, BedrockCodecHelper helper, EnchantData enchant) {
         buffer.writeByte(enchant.getType());
         buffer.writeByte(enchant.getLevel());
+        helper.writeString(buffer, enchant.getModEnchantIdentifier()); // Netease
     }
 
-    protected EnchantData deserializeEnchant(ByteBuf buffer) {
+    protected EnchantData deserializeEnchant(ByteBuf buffer, BedrockCodecHelper helper) {
         int type = buffer.readUnsignedByte();
         int level = buffer.readUnsignedByte();
-        return new EnchantData(type, level);
+        String modEnchantId = helper.readString(buffer);  // Netease
+        return new EnchantData(type, level, "");
     }
 }

@@ -23,7 +23,13 @@ public class ItemStackResponseSerializer_v428 extends ItemStackResponseSerialize
 
     @Override
     protected void writeItemEntry(ByteBuf buffer, BedrockCodecHelper helper, ItemStackResponseSlot itemEntry) {
-        super.writeItemEntry(buffer, helper, itemEntry);
         VarInts.writeInt(buffer, itemEntry.getDurabilityCorrection());
+
+        buffer.writeByte(itemEntry.getSlot());
+        buffer.writeByte(itemEntry.getHotbarSlot());
+        buffer.writeByte(itemEntry.getCount());
+        VarInts.writeInt(buffer, itemEntry.getStackNetworkId());
+        VarInts.writeInt(buffer, itemEntry.getDurabilityCorrection());
+        helper.writeString(buffer, itemEntry.getCustomName());
     }
 }

@@ -6,4 +6,5 @@ import lombok.Value;
 public class EnchantData {
     private final int type;
     private final int level;
+    private final String modEnchantIdentifier;
 }

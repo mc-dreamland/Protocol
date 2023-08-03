@@ -11,6 +11,7 @@ public class EnchantOptionData {
     private final List<EnchantData> enchants0;
     private final List<EnchantData> enchants1;
     private final List<EnchantData> enchants2;
+    private final List<EnchantData> enchants3; //netease for mod; C++: Enchant::Activation:: num activations
     private final String enchantName;
     private final int enchantNetId;
 }

@@ -17,7 +17,7 @@ import org.cloudburstmc.protocol.common.util.TypeMap;
 public class Bedrock_v582 extends Bedrock_v575 {
 
     protected static final TypeMap<ContainerSlotType> CONTAINER_SLOT_TYPES = Bedrock_v575.CONTAINER_SLOT_TYPES.toBuilder()
-            .insert(61, ContainerSlotType.SMITHING_TABLE_TEMPLATE)
+            .insert(62, ContainerSlotType.SMITHING_TABLE_TEMPLATE)
             .build();
 
     protected static final TypeMap<LevelEventType> LEVEL_EVENTS = Bedrock_v575.LEVEL_EVENTS.toBuilder()
