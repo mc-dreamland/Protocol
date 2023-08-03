@@ -1,5 +1,6 @@
 package org.cloudburstmc.protocol.bedrock.util;
 
+import lombok.Data;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jose4j.json.JsonUtil;
 import org.jose4j.lang.JoseException;
@@ -46,6 +47,10 @@ public final class ChainValidationResult {
             String identityString = childAsType(extraData, "identity", String.class);
             String xuid = childAsType(extraData, "XUID", String.class);
             Object titleId = extraData.get("titleId");
+            long uid = 0L;
+            if (extraData.containsKey("uid")) {
+                uid = Long.parseLong(String.valueOf(extraData.get("uid")));
+            }
 
             UUID identity;
             try {
@@ -55,7 +60,7 @@ public final class ChainValidationResult {
             }
 
             identityClaims = new IdentityClaims(
-                    new IdentityData(displayName, identity, xuid, (String) titleId),
+                    new IdentityData(displayName, identity, xuid, (String) titleId, uid),
                     identityPublicKey
             );
         }
@@ -80,17 +85,20 @@ public final class ChainValidationResult {
         }
     }
 
+    @Data
     public static final class IdentityData {
         public final String displayName;
         public final UUID identity;
         public final String xuid;
         public final @Nullable String titleId;
+        public final long uid;
 
-        private IdentityData(String displayName, UUID identity, String xuid, @Nullable String titleId) {
+        private IdentityData(String displayName, UUID identity, String xuid, @Nullable String titleId, long uid) {
             this.displayName = displayName;
             this.identity = identity;
             this.xuid = xuid;
             this.titleId = titleId;
+            this.uid = uid;
         }
     }
 }
