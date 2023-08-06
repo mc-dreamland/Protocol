@@ -145,7 +145,7 @@ public class Bedrock_v504 extends Bedrock_v486 {
             .updateSerializer(ClientboundMapItemDataPacket.class, new ClientboundMapItemDataSerializer_v504())
             .updateSerializer(MapInfoRequestPacket.class, new MapInfoRequestSerializer_v504())
             .registerPacket(FeatureRegistryPacket::new, new FeatureRegistrySerializer_v504(), 191)
-            .registerPacket(NeteaseCustomPacket::new, new NeteaseCustomSerializer_v504(), 228)
+            .registerPacket(NeteaseCustomPacket::new, new NeteaseCustomSerializer_v504(), 200)
             .registerPacket(ConfirmSkinPacket::new, new ConfirmSkinSerializer_v504(), 228)
             .build();
 }
