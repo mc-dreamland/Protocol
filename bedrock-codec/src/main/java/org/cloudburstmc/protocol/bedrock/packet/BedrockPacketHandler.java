@@ -819,7 +819,7 @@ public interface BedrockPacketHandler extends PacketHandler {
     default PacketSignal handle(AgentAnimationPacket packet) {
         return PacketSignal.UNHANDLED;
     }
-    default PacketSignal handle(NeteaseCustomPacket packet) {
+    default PacketSignal handle(NeteasePythonRpcPacket packet) {
         return PacketSignal.UNHANDLED;
     }
     default PacketSignal handle(ConfirmSkinPacket packet) {

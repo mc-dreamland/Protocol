@@ -47,7 +47,7 @@ import java.util.Map;
 @Data
 @EqualsAndHashCode(doNotUseGetters = true)
 @ToString(doNotUseGetters = true)
-public class NeteaseCustomPacket implements BedrockPacket {
+public class NeteasePythonRpcPacket implements BedrockPacket {
     private String eventType;
     private String modName;
     private String system;
@@ -57,11 +57,11 @@ public class NeteaseCustomPacket implements BedrockPacket {
     private byte[] msgPackBytes;
     private Map<String, Object> msgPackMap;
 
-    public NeteaseCustomPacket(){
+    public NeteasePythonRpcPacket(){
     }
 
     @SneakyThrows
-    public NeteaseCustomPacket(String modName, String system, String eventName, Map<String, Object> msgPackMap) {
+    public NeteasePythonRpcPacket(String modName, String system, String eventName, Map<String, Object> msgPackMap) {
 
         this.modName = modName;
         this.system = system;
@@ -73,7 +73,7 @@ public class NeteaseCustomPacket implements BedrockPacket {
     }
 
     @SneakyThrows
-    public NeteaseCustomPacket(byte[] msgPackData) {
+    public NeteasePythonRpcPacket(byte[] msgPackData) {
         this.init(msgPackData);
     }
 

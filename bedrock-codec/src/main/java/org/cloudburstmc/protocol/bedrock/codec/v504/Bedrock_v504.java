@@ -44,6 +44,7 @@ import org.cloudburstmc.protocol.bedrock.data.entity.EntityEventType;
 import org.cloudburstmc.protocol.bedrock.data.entity.EntityFlag;
 import org.cloudburstmc.protocol.bedrock.data.inventory.ContainerSlotType;
 import org.cloudburstmc.protocol.bedrock.packet.*;
+import org.cloudburstmc.protocol.bedrock.transformer.BooleanTransformer;
 import org.cloudburstmc.protocol.bedrock.transformer.FlagTransformer;
 import org.cloudburstmc.protocol.common.util.TypeMap;
 
@@ -63,6 +64,9 @@ public class Bedrock_v504 extends Bedrock_v486 {
             .insert(EntityDataTypes.MOVEMENT_SOUND_DISTANCE_OFFSET, 125, EntityDataFormat.FLOAT)
             .insert(EntityDataTypes.HEARTBEAT_INTERVAL_TICKS, 126, EntityDataFormat.INT)
             .insert(EntityDataTypes.HEARTBEAT_SOUND_EVENT, 127, EntityDataFormat.INT)
+            .insert(EntityDataTypes.PLAYER_LAST_DEATH_POS, 128, EntityDataFormat.VECTOR3I)
+            .insert(EntityDataTypes.PLAYER_LAST_DEATH_DIMENSION, 129, EntityDataFormat.INT)
+            .insert(EntityDataTypes.PLAYER_HAS_DIED, 130, EntityDataFormat.BYTE, BooleanTransformer.INSTANCE)
             .build();
 
     protected static final TypeMap<EntityEventType> ENTITY_EVENTS = Bedrock_v486.ENTITY_EVENTS.toBuilder()
@@ -145,7 +149,7 @@ public class Bedrock_v504 extends Bedrock_v486 {
             .updateSerializer(ClientboundMapItemDataPacket.class, new ClientboundMapItemDataSerializer_v504())
             .updateSerializer(MapInfoRequestPacket.class, new MapInfoRequestSerializer_v504())
             .registerPacket(FeatureRegistryPacket::new, new FeatureRegistrySerializer_v504(), 191)
-            .registerPacket(NeteaseCustomPacket::new, new NeteaseCustomSerializer_v504(), 200)
+            .registerPacket(NeteasePythonRpcPacket::new, new NeteasePythonRpcSerializer_v504(), 200)
             .registerPacket(ConfirmSkinPacket::new, new ConfirmSkinSerializer_v504(), 228)
             .build();
 }

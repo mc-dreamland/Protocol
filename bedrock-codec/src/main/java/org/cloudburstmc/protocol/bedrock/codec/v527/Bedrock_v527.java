@@ -39,9 +39,6 @@ public class Bedrock_v527 extends Bedrock_v503 {
             .update(EntityDataTypes.FLAGS, new FlagTransformer(ENTITY_FLAGS, 0))
             .update(EntityDataTypes.FLAGS_2, new FlagTransformer(ENTITY_FLAGS, 1))
             .update(EntityDataTypes.AREA_EFFECT_CLOUD_PARTICLE, new TypeMapTransformer<>(PARTICLE_TYPES))
-            .insert(EntityDataTypes.PLAYER_LAST_DEATH_POS, 128, EntityDataFormat.VECTOR3I)
-            .insert(EntityDataTypes.PLAYER_LAST_DEATH_DIMENSION, 129, EntityDataFormat.INT)
-            .insert(EntityDataTypes.PLAYER_HAS_DIED, 130, EntityDataFormat.BYTE, BooleanTransformer.INSTANCE)
             .build();
 
     protected static final TypeMap<CommandParam> COMMAND_PARAMS = Bedrock_v503.COMMAND_PARAMS.toBuilder()
