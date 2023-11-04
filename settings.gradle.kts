@@ -3,12 +3,14 @@
 pluginManagement {
     repositories {
         mavenCentral()
+        mavenLocal()
         gradlePluginPortal()
     }
 }
 dependencyResolutionManagement {
     repositories {
         mavenCentral()
+        mavenLocal()
         maven("https://repo.opencollab.dev/maven-releases")
         maven("https://repo.opencollab.dev/maven-snapshots")
     }
