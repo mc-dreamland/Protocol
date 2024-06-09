@@ -8,51 +8,49 @@ import org.cloudburstmc.protocol.bedrock.codec.v313.serializer.LevelSoundEvent2S
 import org.cloudburstmc.protocol.bedrock.codec.v332.serializer.LevelSoundEventSerializer_v332;
 import org.cloudburstmc.protocol.bedrock.codec.v361.serializer.LevelEventGenericSerializer_v361;
 import org.cloudburstmc.protocol.bedrock.codec.v448.serializer.AvailableCommandsSerializer_v448;
-import org.cloudburstmc.protocol.bedrock.codec.v503.BedrockCodecHelper_v503;
-import org.cloudburstmc.protocol.bedrock.codec.v503.Bedrock_v503;
+import org.cloudburstmc.protocol.bedrock.codec.v504.BedrockCodecHelper_v504;
+import org.cloudburstmc.protocol.bedrock.codec.v504.Bedrock_v504;
 import org.cloudburstmc.protocol.bedrock.codec.v527.serializer.*;
 import org.cloudburstmc.protocol.bedrock.data.LevelEvent;
 import org.cloudburstmc.protocol.bedrock.data.LevelEventType;
 import org.cloudburstmc.protocol.bedrock.data.ParticleType;
 import org.cloudburstmc.protocol.bedrock.data.SoundEvent;
 import org.cloudburstmc.protocol.bedrock.data.command.CommandParam;
-import org.cloudburstmc.protocol.bedrock.data.entity.EntityDataFormat;
 import org.cloudburstmc.protocol.bedrock.data.entity.EntityDataTypes;
 import org.cloudburstmc.protocol.bedrock.data.entity.EntityFlag;
 import org.cloudburstmc.protocol.bedrock.packet.*;
-import org.cloudburstmc.protocol.bedrock.transformer.BooleanTransformer;
 import org.cloudburstmc.protocol.bedrock.transformer.FlagTransformer;
 import org.cloudburstmc.protocol.bedrock.transformer.TypeMapTransformer;
 import org.cloudburstmc.protocol.common.util.TypeMap;
 
-public class Bedrock_v527 extends Bedrock_v503 {
+public class Bedrock_v527 extends Bedrock_v504 {
 
-    protected static final TypeMap<EntityFlag> ENTITY_FLAGS = Bedrock_v503.ENTITY_FLAGS.toBuilder()
+    protected static final TypeMap<EntityFlag> ENTITY_FLAGS = Bedrock_v504.ENTITY_FLAGS.toBuilder()
             .insert(106, EntityFlag.SONIC_BOOM)
             .build();
 
-    protected static final TypeMap<ParticleType> PARTICLE_TYPES = Bedrock_v503.PARTICLE_TYPES.toBuilder()
+    protected static final TypeMap<ParticleType> PARTICLE_TYPES = Bedrock_v504.PARTICLE_TYPES.toBuilder()
             .insert(84, ParticleType.SONIC_EXPLOSION)
             .build();
 
-    protected static final EntityDataTypeMap ENTITY_DATA = Bedrock_v503.ENTITY_DATA.toBuilder()
+    protected static final EntityDataTypeMap ENTITY_DATA = Bedrock_v504.ENTITY_DATA.toBuilder()
             .update(EntityDataTypes.FLAGS, new FlagTransformer(ENTITY_FLAGS, 0))
             .update(EntityDataTypes.FLAGS_2, new FlagTransformer(ENTITY_FLAGS, 1))
             .update(EntityDataTypes.AREA_EFFECT_CLOUD_PARTICLE, new TypeMapTransformer<>(PARTICLE_TYPES))
             .build();
 
-    protected static final TypeMap<CommandParam> COMMAND_PARAMS = Bedrock_v503.COMMAND_PARAMS.toBuilder()
+    protected static final TypeMap<CommandParam> COMMAND_PARAMS = Bedrock_v504.COMMAND_PARAMS.toBuilder()
             .shift(7, 1)
             .insert(7, CommandParam.COMPARE_OPERATOR)
             .insert(23, CommandParam.INT_RANGE)
             .build();
 
-    protected static final TypeMap<LevelEventType> LEVEL_EVENTS = Bedrock_v503.LEVEL_EVENTS.toBuilder()
+    protected static final TypeMap<LevelEventType> LEVEL_EVENTS = Bedrock_v504.LEVEL_EVENTS.toBuilder()
             .insert(LEVEL_EVENT_PARTICLE + 39, LevelEvent.SONIC_EXPLOSION)
             .insert(LEVEL_EVENT_PARTICLE_TYPE, PARTICLE_TYPES)
             .build();
 
-    protected static final TypeMap<SoundEvent> SOUND_EVENTS = Bedrock_v503.SOUND_EVENTS.toBuilder()
+    protected static final TypeMap<SoundEvent> SOUND_EVENTS = Bedrock_v504.SOUND_EVENTS.toBuilder()
             .remove(423)
             .insert(426, SoundEvent.IMITATE_WARDEN)
             .insert(428, SoundEvent.ITEM_GIVEN)
@@ -70,10 +68,10 @@ public class Bedrock_v527 extends Bedrock_v503 {
             .insert(441, SoundEvent.UNDEFINED)
             .build();
 
-    public static final BedrockCodec CODEC = Bedrock_v503.CODEC.toBuilder()
+    public static final BedrockCodec CODEC = Bedrock_v504.CODEC.toBuilder()
             .protocolVersion(527)
             .minecraftVersion("1.19.0")
-            .helper(() -> new BedrockCodecHelper_v503(ENTITY_DATA, GAME_RULE_TYPES, ITEM_STACK_REQUEST_TYPES, CONTAINER_SLOT_TYPES))
+            .helper(() -> new BedrockCodecHelper_v504(ENTITY_DATA, GAME_RULE_TYPES, ITEM_STACK_REQUEST_TYPES, CONTAINER_SLOT_TYPES))
             .updateSerializer(StartGamePacket.class, new StartGameSerializer_v527())
             .updateSerializer(AvailableCommandsPacket.class, new AvailableCommandsSerializer_v448(COMMAND_PARAMS))
             .updateSerializer(LevelEventPacket.class, new LevelEventSerializer_v291(LEVEL_EVENTS))

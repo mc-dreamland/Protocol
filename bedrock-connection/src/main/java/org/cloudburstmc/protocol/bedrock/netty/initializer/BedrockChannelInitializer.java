@@ -47,10 +47,10 @@ public abstract class BedrockChannelInitializer<T extends BedrockSession> extend
             case 9:
                 channel.pipeline().addLast(CompressionCodec.NAME, new ZlibCompressionCodec(Zlib.DEFAULT));
                 break;
-            case 8:
             case 10: // Zlib Raw
                 channel.pipeline().addLast(CompressionCodec.NAME, new ZlibCompressionCodec(Zlib.RAW));
                 break;
+            case 8:
             case 11: // No compression on initial packet request
                 break;
             default:

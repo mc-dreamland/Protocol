@@ -18,7 +18,6 @@ public class Bedrock_v544 extends Bedrock_v534 {
             .updateSerializer(MapInfoRequestPacket.class, new MapInfoRequestSerializer_v544())
             .updateSerializer(ModalFormResponsePacket.class, new ModalFormResponseSerializer_v544())
             .updateSerializer(NetworkChunkPublisherUpdatePacket.class, new NetworkChunkPublisherUpdateSerializer_v544())
-            .registerPacket(FeatureRegistryPacket::new, new FeatureRegistrySerializer_v544(), 191)
             .build();
 
 }

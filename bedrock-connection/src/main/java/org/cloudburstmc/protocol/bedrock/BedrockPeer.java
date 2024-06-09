@@ -96,7 +96,6 @@ public class BedrockPeer extends ChannelInboundHandlerAdapter {
 
     private void onRakNetDisconnect(ChannelHandlerContext ctx, RakDisconnectReason reason) {
         String disconnectReason = BedrockDisconnectReasons.getReason(reason);
-        System.out.println("onRakNetDisconnect -> " + disconnectReason);
         for (BedrockSession session : this.sessions.values()) {
             session.disconnectReason = disconnectReason;
         }
@@ -188,7 +187,6 @@ public class BedrockPeer extends ChannelInboundHandlerAdapter {
     }
 
     public void close(String reason) {
-        System.out.println("close #1 -> " + reason);
         for (BedrockSession session : this.sessions.values()) {
             session.disconnectReason = reason;
         }
@@ -212,8 +210,6 @@ public class BedrockPeer extends ChannelInboundHandlerAdapter {
 
         for (BedrockSession session : this.sessions.values())
             try {
-                log.info("this.sessions.values().size() -> " + this.sessions.values().size());
-                log.info("this.sessions.size() -> " + this.sessions.size());
                 session.onClose();
             } catch (Exception e) {
                 log.error("Exception whilst closing session", e);
@@ -244,20 +240,17 @@ public class BedrockPeer extends ChannelInboundHandlerAdapter {
 
     @Override
     public void handlerRemoved(ChannelHandlerContext ctx) {
-        System.out.println("onClose -> handlerRemoved");
         this.onClose();
     }
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        System.out.println("channelActive");
         this.sessions.put(0, this.sessionFactory.createSession(this, 0));
         this.tickFuture = this.channel.eventLoop().scheduleAtFixedRate(this::onTick, 50, 50, TimeUnit.MILLISECONDS);
     }
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        System.out.println("onClose -> channelInactive");
         this.onClose();
     }
 

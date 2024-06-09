@@ -107,7 +107,6 @@ public abstract class BedrockSession {
             return;
         }
 
-        log.info("onClose -> " + this.closed.compareAndSet(false, true) + " | " + this.disconnectReason);
         if (this.packetHandler != null) try {
             this.packetHandler.onDisconnect(this.disconnectReason);
         } catch (Exception e) {
@@ -159,7 +158,6 @@ public abstract class BedrockSession {
     }
 
     public void setDisconnectReason(String disconnectReason) {
-        System.out.println("setDisconnectReason -> " + disconnectReason);
         this.disconnectReason = disconnectReason;
     }
 
