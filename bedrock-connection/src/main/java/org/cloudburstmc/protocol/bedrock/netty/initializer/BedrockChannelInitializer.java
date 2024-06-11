@@ -9,6 +9,7 @@ import org.cloudburstmc.protocol.bedrock.netty.codec.FrameIdCodec;
 import org.cloudburstmc.protocol.bedrock.netty.codec.batch.BedrockBatchDecoder;
 import org.cloudburstmc.protocol.bedrock.netty.codec.batch.BedrockBatchEncoder;
 import org.cloudburstmc.protocol.bedrock.netty.codec.compression.CompressionCodec;
+import org.cloudburstmc.protocol.bedrock.netty.codec.compression.LegacyCompressorDetector;
 import org.cloudburstmc.protocol.bedrock.netty.codec.compression.ZlibCompressionCodec;
 import org.cloudburstmc.protocol.bedrock.netty.codec.packet.BedrockPacketCodec;
 import org.cloudburstmc.protocol.bedrock.netty.codec.packet.BedrockPacketCodec_v1;
@@ -52,6 +53,7 @@ public abstract class BedrockChannelInitializer<T extends BedrockSession> extend
                 break;
             case 8:
             case 11: // No compression on initial packet request
+                channel.pipeline().addLast(LegacyCompressorDetector.NAME, new LegacyCompressorDetector());
                 break;
             default:
                 throw new UnsupportedOperationException("Unsupported RakNet protocol version: " + rakVersion);
