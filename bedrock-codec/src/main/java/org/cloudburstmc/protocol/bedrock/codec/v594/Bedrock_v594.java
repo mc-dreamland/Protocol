@@ -26,8 +26,6 @@ public class Bedrock_v594 extends Bedrock_v589 {
 
     protected static final EntityDataTypeMap ENTITY_DATA = Bedrock_v589.ENTITY_DATA
             .toBuilder()
-            .insert(EntityDataTypes.PLAYER_LAST_DEATH_DIMENSION , 128, EntityDataFormat.INT)
-            .insert(EntityDataTypes.PLAYER_HAS_DIED, 129, EntityDataFormat.BYTE, BooleanTransformer.INSTANCE)
             .insert(EntityDataTypes.COLLISION_BOX, 130, EntityDataFormat.VECTOR3F)
             .update(EntityDataTypes.FLAGS, new FlagTransformer(ENTITY_FLAGS, 0))
             .update(EntityDataTypes.FLAGS_2, new FlagTransformer(ENTITY_FLAGS, 1))

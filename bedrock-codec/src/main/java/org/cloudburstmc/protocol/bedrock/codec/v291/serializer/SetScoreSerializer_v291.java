@@ -22,6 +22,9 @@ public class SetScoreSerializer_v291 implements BedrockPacketSerializer<SetScore
         buffer.writeByte(action.ordinal());
 
         helper.writeArray(buffer, packet.getInfos(), (buf, scoreInfo) -> {
+            if (scoreInfo == null) {
+                return;
+            }
             VarInts.writeLong(buf, scoreInfo.getScoreboardId());
             helper.writeString(buf, scoreInfo.getObjectiveId());
             buf.writeIntLE(scoreInfo.getScore());
