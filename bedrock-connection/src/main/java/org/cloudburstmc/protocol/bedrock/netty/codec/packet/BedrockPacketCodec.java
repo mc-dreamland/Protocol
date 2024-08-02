@@ -57,7 +57,7 @@ public abstract class BedrockPacketCodec extends MessageToMessageCodec<ByteBuf, 
             wrapper.setPacket(this.codec.tryDecode(helper, msg, wrapper.getPacketId()));
             out.add(wrapper.retain());
         } catch (Throwable t) {
-            log.info("Failed to decode packet", t);
+            log.info("Failed to decode packet " + ctx.pipeline().channel().remoteAddress().toString(), t);
             throw t;
         } finally {
             wrapper.release();

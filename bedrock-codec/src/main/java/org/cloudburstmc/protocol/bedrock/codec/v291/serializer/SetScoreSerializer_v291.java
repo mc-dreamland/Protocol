@@ -23,23 +23,27 @@ public class SetScoreSerializer_v291 implements BedrockPacketSerializer<SetScore
 
         helper.writeArray(buffer, packet.getInfos(), (buf, scoreInfo) -> {
             if (scoreInfo == null) {
-                return;
-            }
-            VarInts.writeLong(buf, scoreInfo.getScoreboardId());
-            helper.writeString(buf, scoreInfo.getObjectiveId());
-            buf.writeIntLE(scoreInfo.getScore());
-            if (action == Action.SET) {
-                buf.writeByte(scoreInfo.getType().ordinal());
-                switch (scoreInfo.getType()) {
-                    case ENTITY:
-                    case PLAYER:
-                        VarInts.writeLong(buf, scoreInfo.getEntityId());
-                        break;
-                    case FAKE:
-                        helper.writeString(buf, scoreInfo.getName());
-                        break;
-                    default:
-                        throw new IllegalArgumentException("Invalid score info received");
+                VarInts.writeLong(buf, -1L);
+                helper.writeString(buf, "null");
+                buf.writeIntLE(-1);
+            } else {
+                VarInts.writeLong(buf, scoreInfo.getScoreboardId());
+                helper.writeString(buf, scoreInfo.getObjectiveId());
+                buf.writeIntLE(scoreInfo.getScore());
+
+                if (action == Action.SET) {
+                    buf.writeByte(scoreInfo.getType().ordinal());
+                    switch (scoreInfo.getType()) {
+                        case ENTITY:
+                        case PLAYER:
+                            VarInts.writeLong(buf, scoreInfo.getEntityId());
+                            break;
+                        case FAKE:
+                            helper.writeString(buf, scoreInfo.getName());
+                            break;
+                        default:
+                            throw new IllegalArgumentException("Invalid score info received");
+                    }
                 }
             }
         });
