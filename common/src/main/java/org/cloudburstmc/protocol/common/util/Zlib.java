@@ -17,7 +17,7 @@ public class Zlib {
     private static final int CHUNK = 8192;
 
     private final FastThreadLocal<Inflater> inflaterLocal;
-    private final FastThreadLocal<Deflater> deflaterLocal;
+    private final FastThreadLocal<IGzipDeflater> deflaterLocal;
 
     private Zlib(boolean raw) {
         // Required for Android API versions prior to 26.
@@ -27,10 +27,11 @@ public class Zlib {
                 return Natives.ZLIB.get().create(raw);
             }
         };
-        this.deflaterLocal = new FastThreadLocal<Deflater>() {
+        this.deflaterLocal = new FastThreadLocal<IGzipDeflater>() {
             @Override
-            protected Deflater initialValue() {
-                return Natives.ZLIB.get().create(7, raw);
+            protected IGzipDeflater initialValue() {
+                // 5x faster than JDK's
+                return new IGzipDeflater(1, raw);
             }
         };
     }
@@ -96,17 +97,14 @@ public class Zlib {
                 destination = compressed;
             }
 
-            Deflater deflater = deflaterLocal.get();
-            deflater.reset();
+            IGzipDeflater deflater = deflaterLocal.get();
             deflater.setLevel(level);
-            deflater.setInput(source.internalNioBuffer(source.readerIndex(), source.readableBytes()));
+            deflater.setInput(source);
 
-            while (!deflater.finished()) {
-                int index = destination.writerIndex();
-                destination.ensureWritable(CHUNK);
-                int written = deflater.deflate(destination.internalNioBuffer(index, CHUNK));
-                destination.writerIndex(index + written);
-            }
+            int index = destination.writerIndex();
+            destination.ensureWritable(source.readableBytes());
+            int written = deflater.deflate(destination);// One-shoot, stateless compress algorithm
+            destination.writerIndex(index + written);
 
             if (destination != compressed) {
                 compressed.writeBytes(destination);
