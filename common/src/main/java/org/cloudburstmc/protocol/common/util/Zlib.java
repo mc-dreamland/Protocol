@@ -15,9 +15,15 @@ public class Zlib {
     public static final Zlib RAW = new Zlib(true);
 
     private static final int CHUNK = 8192;
+    private static final int MINIMUM_COMPRESSION_SIZE = 256;
+    // Z padding = 11
+    // Z no Header padding = 9
+    // It's safe to append 20
+    private static final int MINIMUM_COMPRESSION_CHUNK = MINIMUM_COMPRESSION_SIZE + 20;
 
     private final FastThreadLocal<Inflater> inflaterLocal;
     private final FastThreadLocal<IGzipDeflater> deflaterLocal;
+    private final FastThreadLocal<IGzipDeflater> deflaterNoop;
 
     private Zlib(boolean raw) {
         // Required for Android API versions prior to 26.
@@ -32,6 +38,13 @@ public class Zlib {
             protected IGzipDeflater initialValue() {
                 // 5x faster than JDK's
                 return new IGzipDeflater(1, raw);
+            }
+        };
+        this.deflaterNoop = new FastThreadLocal<IGzipDeflater>() {
+            @Override
+            protected IGzipDeflater initialValue() {
+                // 5x faster than JDK's
+                return new IGzipDeflater(0, raw);
             }
         };
     }
@@ -97,12 +110,14 @@ public class Zlib {
                 destination = compressed;
             }
 
-            IGzipDeflater deflater = deflaterLocal.get();
-            deflater.setLevel(level);
+            int oldSize = source.readableBytes();
+            IGzipDeflater deflater = oldSize < MINIMUM_COMPRESSION_SIZE ?
+                    deflaterNoop.get() :
+                    deflaterLocal.get().level(level);
             deflater.setInput(source);
 
             int index = destination.writerIndex();
-            destination.ensureWritable(source.readableBytes());
+            destination.ensureWritable(Math.max(MINIMUM_COMPRESSION_CHUNK, oldSize));
             int written = deflater.deflate(destination);// One-shoot, stateless compress algorithm
             destination.writerIndex(index + written);
 

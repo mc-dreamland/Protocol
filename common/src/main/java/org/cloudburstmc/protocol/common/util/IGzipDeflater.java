@@ -22,6 +22,11 @@ public class IGzipDeflater implements Deflater {
         iGzip.setLevel(level);
     }
 
+    public IGzipDeflater level(int level) {
+        iGzip.setLevel(level);
+        return this;
+    }
+
     @Override
     public void setInput(ByteBuffer input) {
         this.input = Unpooled.wrappedBuffer(input);
