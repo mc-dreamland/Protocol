@@ -125,7 +125,7 @@ public final class TypeMap<T> {
 
         public Builder<T> insert(int index, T value) {
             checkNotNull(value, "value");
-            checkArgument(this.types.get(index) == null, "Cannot insert into non-null value at index " + index);
+            checkArgument(this.types.get(index) == null, "Cannot insert into non-null value at index " + index + " | " + value.getClass() + " | " + value.toString());
             this.types.put(index, value);
             return this;
         }

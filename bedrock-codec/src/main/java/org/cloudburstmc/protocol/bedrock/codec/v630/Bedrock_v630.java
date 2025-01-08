@@ -36,7 +36,7 @@ public class Bedrock_v630 extends Bedrock_v622 {
             .build();
 
     protected static final TypeMap<ContainerSlotType> CONTAINER_SLOT_TYPES = Bedrock_v622.CONTAINER_SLOT_TYPES.toBuilder()
-            .insert(62, ContainerSlotType.CRAFTER_BLOCK_CONTAINER)
+            .insert(63, ContainerSlotType.CRAFTER_BLOCK_CONTAINER)
             .build();
 
     protected static final TypeMap<SoundEvent> SOUND_EVENTS = Bedrock_v622.SOUND_EVENTS
