@@ -52,7 +52,7 @@ public class BedrockCodecHelper_v431 extends BedrockCodecHelper_v428 {
 
         ByteBuf buf = buffer.readSlice(VarInts.readUnsignedInt(buffer));
         try (LittleEndianByteBufInputStream stream = new LittleEndianByteBufInputStream(buf);
-             NBTInputStream nbtStream = new NBTInputStream(stream)) {
+             NBTInputStream nbtStream = new NBTInputStream(stream, this.encodingSettings.maxItemNBTSize())) {
             int nbtSize = stream.readShort();
 
             if (nbtSize > 0) {
@@ -79,8 +79,9 @@ public class BedrockCodecHelper_v431 extends BedrockCodecHelper_v428 {
             throw new IllegalStateException("Unable to read item user data", e);
         }
 
-        if (buf.isReadable()) {
-            log.info("Item user data has {} readable bytes left\n{}", buf.readableBytes(), ByteBufUtil.prettyHexDump(buf.readerIndex(0)));
+        if (log.isDebugEnabled() && buf.isReadable()) {
+            log.debug("Item user data has {} readable bytes left", buf.readableBytes());
+            log.debug("Item data:\n{}", ByteBufUtil.prettyHexDump(buf.readerIndex(0)));
         }
 
         return ItemData.builder()
@@ -121,7 +122,7 @@ public class BedrockCodecHelper_v431 extends BedrockCodecHelper_v428 {
 
         ByteBuf buf = buffer.readSlice(VarInts.readUnsignedInt(buffer));
         try (LittleEndianByteBufInputStream stream = new LittleEndianByteBufInputStream(buf);
-             NBTInputStream nbtStream = new NBTInputStream(stream)) {
+             NBTInputStream nbtStream = new NBTInputStream(stream, this.encodingSettings.maxItemNBTSize())) {
             int nbtSize = stream.readShort();
 
             if (nbtSize > 0) {
@@ -149,7 +150,11 @@ public class BedrockCodecHelper_v431 extends BedrockCodecHelper_v428 {
         }
 
         if (buf.isReadable()) {
-            log.info("Item user data has {} readable bytes left\n{}", buf.readableBytes(), ByteBufUtil.prettyHexDump(buf.readerIndex(0)));
+            log.info("Item user data has {} readable bytes left", buf.readableBytes());
+
+            if (log.isDebugEnabled()) {
+                log.debug("Item data:\n{}", ByteBufUtil.prettyHexDump(buf.readerIndex(0)));
+            }
         }
 
         return ItemData.builder()
@@ -299,7 +304,7 @@ public class BedrockCodecHelper_v431 extends BedrockCodecHelper_v428 {
             ItemData toItem = helper.readItem(buf);
 
             return new InventoryActionData(source, slot, fromItem, toItem);
-        });
+        }, 64); // 64 should be enough
         return false;
     }
 

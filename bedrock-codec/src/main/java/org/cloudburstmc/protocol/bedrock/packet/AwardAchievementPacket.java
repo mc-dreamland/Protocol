@@ -3,14 +3,13 @@ package org.cloudburstmc.protocol.bedrock.packet;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.cloudburstmc.math.vector.Vector3f;
 import org.cloudburstmc.protocol.common.PacketSignal;
 
 @Data
 @EqualsAndHashCode(doNotUseGetters = true)
 @ToString(doNotUseGetters = true)
-public class ServerPostMovePositionPacket implements BedrockPacket {
-    private Vector3f position;
+public class AwardAchievementPacket implements BedrockPacket {
+    private int achievementId;
 
     @Override
     public PacketSignal handle(BedrockPacketHandler handler) {
@@ -19,6 +18,6 @@ public class ServerPostMovePositionPacket implements BedrockPacket {
 
     @Override
     public BedrockPacketType getPacketType() {
-        return BedrockPacketType.SERVER_POST_MOVE_POSITION;
+        return BedrockPacketType.AWARD_ACHIEVEMENT;
     }
 }

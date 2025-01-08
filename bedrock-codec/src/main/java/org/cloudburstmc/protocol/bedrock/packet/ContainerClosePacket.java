@@ -3,6 +3,7 @@ package org.cloudburstmc.protocol.bedrock.packet;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.cloudburstmc.protocol.bedrock.data.inventory.ContainerType;
 import org.cloudburstmc.protocol.common.PacketSignal;
 
 @Data
@@ -11,6 +12,10 @@ import org.cloudburstmc.protocol.common.PacketSignal;
 public class ContainerClosePacket implements BedrockPacket {
     private byte id;
     private boolean serverInitiated;
+    /**
+     * @since v685
+     */
+    private ContainerType type;
 
     @Override
     public final PacketSignal handle(BedrockPacketHandler handler) {

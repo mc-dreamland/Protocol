@@ -77,13 +77,6 @@ public abstract class BedrockSession {
         this.peer.setCompression(algorithm);
     }
 
-    public void setCompressionLevel(int level) {
-        if (isSubClient()) {
-            throw new IllegalStateException("The compression level can only be set by the primary session");
-        }
-        this.peer.setCompressionLevel(level);
-    }
-
     public void enableEncryption(SecretKey key) {
         if (isSubClient()) {
             throw new IllegalStateException("Encryption can only be enabled by the primary session");
@@ -118,10 +111,15 @@ public abstract class BedrockSession {
     protected void onPacket(BedrockPacketWrapper wrapper) {
         BedrockPacket packet = wrapper.getPacket();
         this.logInbound(packet);
+
         if (packetHandler == null) {
-            log.warn("Received packet without a packet handler for {}:{}: {}", this.getSocketAddress(), this.subClientId, packet);
+            if (log.isDebugEnabled()) {
+                log.debug("Received packet without a packet handler for {}:{}: {}", this.getSocketAddress(), this.subClientId, packet);
+            }
         } else if (this.packetHandler.handlePacket(packet) == PacketSignal.UNHANDLED) {
-            log.warn("Unhandled packet for {}:{}: {}", this.getSocketAddress(), this.subClientId, packet);
+            if (log.isDebugEnabled()) {
+                log.debug("Unhandled packet for {}:{}: {}", this.getSocketAddress(), this.subClientId, packet);   
+            }
         }
     }
 

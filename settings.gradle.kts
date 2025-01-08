@@ -9,6 +9,7 @@ pluginManagement {
 }
 dependencyResolutionManagement {
     repositories {
+        mavenLocal()
         mavenCentral()
         mavenLocal()
         maven("https://repo.opencollab.dev/maven-releases")

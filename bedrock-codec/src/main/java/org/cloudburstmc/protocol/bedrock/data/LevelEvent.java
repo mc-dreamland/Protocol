@@ -88,6 +88,24 @@ public enum LevelEvent implements LevelEventType {
      * @since v630
      */
     PARTICLE_SHOOT_WHITE_SMOKE,
+    /**
+     * @since v649
+     */
+    PARTICLE_WIND_EXPLOSION,
+    PARTICLE_TRAIL_SPAWNER_DETECTION,
+    PARTICLE_TRAIL_SPAWNER_SPAWNING,
+    PARTICLE_TRAIL_SPAWNER_EJECTING,
+    /**
+     * @since v662
+     */
+    PARTICLE_BREEZE_WIND_EXPLOSION,
+    /**
+     * @since v685
+     */
+    PARTICLE_TRIAL_SPAWNER_DETECTION_CHARGED,
+    PARTICLE_TRIAL_SPAWNER_BECOME_CHARGED,
+    PARTICLE_SMASH_ATTACK_GROUND_DUST,
+
     SCULK_CATALYST_BLOOM,
     SCULK_CHARGE,
     SCULK_CHARGE_POP,
@@ -133,5 +151,15 @@ public enum LevelEvent implements LevelEventType {
 
     ALL_PLAYERS_SLEEPING,
     SLEEPING_PLAYERS,
-    JUMP_PREVENTED
+    JUMP_PREVENTED,
+    /**
+     * @since v662
+     */
+    ANIMATION_VAULT_ACTIVATE,
+    ANIMATION_VAULT_DEACTIVATE,
+    ANIMATION_VAULT_EJECT_ITEM,
+    /**
+     * @since v685
+     */
+    ANIMATION_SPAWN_COBWEB,
 }
