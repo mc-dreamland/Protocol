@@ -12,11 +12,8 @@ import org.cloudburstmc.protocol.bedrock.netty.codec.batch.BedrockBatchDecoder;
 import org.cloudburstmc.protocol.bedrock.netty.codec.batch.BedrockBatchEncoder;
 import org.cloudburstmc.protocol.bedrock.netty.codec.compression.*;
 import org.cloudburstmc.protocol.bedrock.netty.codec.compression.CompressionCodec;
-import org.cloudburstmc.protocol.bedrock.netty.codec.compression.LegacyCompressorDetector;
-import org.cloudburstmc.protocol.bedrock.netty.codec.compression.ZlibCompressionCodec;
 import org.cloudburstmc.protocol.bedrock.netty.codec.packet.BedrockPacketCodec;
 import org.cloudburstmc.protocol.bedrock.netty.codec.packet.BedrockPacketCodec_v1;
-import org.cloudburstmc.protocol.bedrock.netty.codec.packet.BedrockPacketCodec_v2;
 import org.cloudburstmc.protocol.bedrock.netty.codec.packet.BedrockPacketCodec_v3;
 import org.cloudburstmc.protocol.common.util.Zlib;
 
@@ -60,28 +57,10 @@ public abstract class BedrockChannelInitializer<T extends BedrockSession> extend
         switch (rakVersion) {
             case 7:
             case 9:
-                channel.pipeline().addLast(CompressionCodec.NAME, new ZlibCompressionCodec(Zlib.DEFAULT));
-                break;
-            case 10: // Zlib Raw
-                channel.pipeline().addLast(CompressionCodec.NAME, new ZlibCompressionCodec(Zlib.RAW));
-                break;
-            case 8:
-            case 11: // No compression on initial packet request
-                channel.pipeline().addLast(LegacyCompressorDetector.NAME, new LegacyCompressorDetector());
-                break;
-            default:
-                throw new UnsupportedOperationException("Unsupported RakNet protocol version: " + rakVersion);
-        }
-    }
-
-    public static CompressionStrategy getCompression(CompressionAlgorithm algorithm, int rakVersion, boolean initial) {
-        switch (rakVersion) {
-            case 7:
-            case 8:
-            case 9:
                 return ZLIB_STRATEGY;
             case 10:
                 return ZLIB_RAW_STRATEGY;
+            case 8:
             case 11:
                 return initial ? NOOP_STRATEGY : getCompression(algorithm);
             default:

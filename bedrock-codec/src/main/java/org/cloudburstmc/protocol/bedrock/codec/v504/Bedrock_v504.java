@@ -33,6 +33,7 @@ import org.cloudburstmc.protocol.bedrock.codec.v407.Bedrock_v407;
 import org.cloudburstmc.protocol.bedrock.codec.v503.BedrockCodecHelper_v503;
 import org.cloudburstmc.protocol.bedrock.codec.v503.Bedrock_v503;
 import org.cloudburstmc.protocol.bedrock.codec.v504.serializer.*;
+import org.cloudburstmc.protocol.bedrock.data.PacketRecipient;
 import org.cloudburstmc.protocol.bedrock.data.entity.EntityDataFormat;
 import org.cloudburstmc.protocol.bedrock.data.entity.EntityDataTypes;
 import org.cloudburstmc.protocol.bedrock.data.inventory.ContainerSlotType;
@@ -61,8 +62,7 @@ public class Bedrock_v504 extends Bedrock_v503 {
             .updateSerializer(ClientboundMapItemDataPacket.class, new ClientboundMapItemDataSerializer_v504())
             .updateSerializer(MapInfoRequestPacket.class, new MapInfoRequestSerializer_v504())
             .updateSerializer(ItemStackResponsePacket.class, ItemStackResponseSerializer_v504.INSTANCE)
-            .registerPacket(FeatureRegistryPacket::new, new FeatureRegistrySerializer_v504(), 191)
-            .registerPacket(NeteasePythonRpcPacket::new, new NeteasePythonRpcSerializer_v504(), 200)
-            .registerPacket(ConfirmSkinPacket::new, new ConfirmSkinSerializer_v504(), 228)
+            .registerPacket(NeteasePythonRpcPacket::new, new NeteasePythonRpcSerializer_v504(), 200, PacketRecipient.BOTH)
+            .registerPacket(ConfirmSkinPacket::new, new ConfirmSkinSerializer_v504(), 228, PacketRecipient.SERVER)
             .build();
 }

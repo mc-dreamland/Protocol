@@ -7,6 +7,7 @@ dependencies {
     api(libs.nbt)
     api(libs.msgpack)
     api(libs.gson)
+    api(libs.json)
 }
 
 tasks.jar {
