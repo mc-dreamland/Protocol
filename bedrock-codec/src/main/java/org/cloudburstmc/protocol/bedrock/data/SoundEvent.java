@@ -152,6 +152,7 @@ public enum SoundEvent {
     IMITATE_ELDER_GUARDIAN,
     IMITATE_ENDER_DRAGON,
     IMITATE_ENDERMAN,
+    IMITATE_ENDERMITE,
     IMITATE_EVOCATION_ILLAGER,
     IMITATE_GHAST,
     IMITATE_HUSK,
@@ -566,6 +567,30 @@ public enum SoundEvent {
      */
     COPPER_BULB_OFF,
     /**
+     * @since v630
+     */
+    TRIAL_SPAWNER_OPEN_SHUTTER,
+    /**
+     * @since v630
+     */
+    TRIAL_SPAWNER_EJECT_ITEM,
+    /**
+     * @since v630
+     */
+    TRIAL_SPAWNER_DETECT_PLAYER,
+    /**
+     * @since v630
+     */
+    TRIAL_SPAWNER_SPAWN_MOB,
+    /**
+     * @since v630
+     */
+    TRIAL_SPAWNER_CLOSE_SHUTTER,
+    /**
+     * @since v630
+     */
+    TRIAL_SPAWNER_AMBIENT,
+    /**
      * @since v649
      */
     AMBIENT_IN_AIR,
@@ -664,11 +689,11 @@ public enum SoundEvent {
     /**
      * @since v685
      */
-    TRAIL_SPAWNER_CHARGE_ACTIVATE,
+    TRIAL_SPAWNER_CHARGE_ACTIVATE,
     /**
      * @since v685
      */
-    TRAIL_SPAWNER_AMBIENT_OMINOUS,
+    TRIAL_SPAWNER_AMBIENT_OMINOUS,
     /**
      * @since v685
      */
@@ -709,6 +734,105 @@ public enum SoundEvent {
      * @since v685
      */
     RECORD_PRECIPICE,
-
+    /**
+     * @since v712
+     */
+    IMITATE_BOGGED,
+    /**
+     * @since v712
+     */
+    VAULT_REJECT_REWARDED_PLAYER,
+    /**
+     * @since v729
+     */
+    IMITATE_DROWNED,
+    /**
+     * @since v729
+     */
+    BUNDLE_INSERT_FAILED,
+    /**
+     * @since v766
+     */
+    IMITATE_CREAKING,
+    /**
+     * @since v766
+     */
+    SPONGE_ABSORB,
+    /**
+     * @since v766
+     */
+    BLOCK_CREAKING_HEART_TRAIL,
+    /**
+     * @since v766
+     */
+    CREAKING_HEART_SPAWN,
+    /**
+     * @since v766
+     */
+    ACTIVATE,
+    /**
+     * @since v766
+     */
+    DEACTIVATE,
+    /**
+     * @since v766
+     */
+    FREEZE,
+    /**
+     * @since v766
+     */
+    UNFREEZE,
+    /**
+     * @since v766
+     */
+    OPEN,
+    /**
+     * @since v766
+     */
+    OPEN_LONG,
+    /**
+     * @since v766
+     */
+    CLOSE,
+    /**
+     * @since v766
+     */
+    CLOSE_LONG,
+    /**
+     * @since v800
+     */
+    IMITATE_PHANTOM,
+    /**
+     * @since v800
+     */
+    IMITATE_ZOGLIN,
+    /**
+     * @since v800
+     */
+    IMITATE_GUARDIAN,
+    /**
+     * @since v800
+     */
+    IMITATE_RAVAGER,
+    /**
+     * @since v800
+     */
+    IMITATE_PILLAGER,
+    /**
+     * @since v800
+     */
+    PLACE_IN_WATER,
+    /**
+     * @since v800
+     */
+    STATE_CHANGE,
+    /**
+     * @since v800
+     */
+    IMITATE_HAPPY_GHAST,
+    /**
+     * @since v800
+     */
+    UNEQUIP_GENERIC,
     UNDEFINED
 }

@@ -15,6 +15,10 @@ public class MobArmorEquipmentPacket implements BedrockPacket {
     private ItemData chestplate;
     private ItemData leggings;
     private ItemData boots;
+    /**
+     * @since v712
+     */
+    private ItemData body;
 
     @Override
     public final PacketSignal handle(BedrockPacketHandler handler) {
@@ -24,4 +28,14 @@ public class MobArmorEquipmentPacket implements BedrockPacket {
     public BedrockPacketType getPacketType() {
         return BedrockPacketType.MOB_ARMOR_EQUIPMENT;
     }
+
+    @Override
+    public MobArmorEquipmentPacket clone() {
+        try {
+            return (MobArmorEquipmentPacket) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError(e);
+        }
+    }
 }
+

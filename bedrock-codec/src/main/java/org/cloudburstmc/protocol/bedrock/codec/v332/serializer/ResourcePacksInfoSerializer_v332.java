@@ -7,6 +7,8 @@ import org.cloudburstmc.protocol.bedrock.codec.BedrockCodecHelper;
 import org.cloudburstmc.protocol.bedrock.codec.v291.serializer.ResourcePacksInfoSerializer_v291;
 import org.cloudburstmc.protocol.bedrock.packet.ResourcePacksInfoPacket;
 
+import java.util.UUID;
+
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ResourcePacksInfoSerializer_v332 extends ResourcePacksInfoSerializer_v291 {
     public static final ResourcePacksInfoSerializer_v332 INSTANCE = new ResourcePacksInfoSerializer_v332();
@@ -37,7 +39,7 @@ public class ResourcePacksInfoSerializer_v332 extends ResourcePacksInfoSerialize
 
     @Override
     public ResourcePacksInfoPacket.Entry readEntry(ByteBuf buffer, BedrockCodecHelper helper, boolean resource) {
-        String packId = helper.readString(buffer);
+        UUID packId = UUID.fromString(helper.readString(buffer));
         String packVersion = helper.readString(buffer);
         long packSize = buffer.readLongLE();
         String contentKey = helper.readString(buffer);
@@ -45,6 +47,6 @@ public class ResourcePacksInfoSerializer_v332 extends ResourcePacksInfoSerialize
         String contentId = helper.readString(buffer);
         boolean isScripting = buffer.readBoolean();
         return new ResourcePacksInfoPacket.Entry(packId, packVersion, packSize, contentKey, subPackName, contentId,
-                isScripting, false);
+                isScripting, false, false, null);
     }
 }

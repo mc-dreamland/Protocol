@@ -6,6 +6,9 @@ import lombok.ToString;
 import org.cloudburstmc.math.vector.Vector2f;
 import org.cloudburstmc.protocol.common.PacketSignal;
 
+/**
+ * @deprecated Removed as of v800 (1.21.80). Server authoritative input is handled by {@link PlayerAuthInputPacket}
+ */
 @Data
 @EqualsAndHashCode(doNotUseGetters = true)
 @ToString(doNotUseGetters = true)
@@ -22,4 +25,14 @@ public class PlayerInputPacket implements BedrockPacket {
     public BedrockPacketType getPacketType() {
         return BedrockPacketType.PLAYER_INPUT;
     }
+
+    @Override
+    public PlayerInputPacket clone() {
+        try {
+            return (PlayerInputPacket) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError(e);
+        }
+    }
 }
+

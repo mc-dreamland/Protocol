@@ -7,6 +7,7 @@ import lombok.ToString;
 import org.cloudburstmc.protocol.bedrock.data.skin.SerializedSkin;
 import org.cloudburstmc.protocol.common.PacketSignal;
 
+import java.awt.*;
 import java.util.List;
 import java.util.UUID;
 
@@ -48,5 +49,16 @@ public class PlayerListPacket implements BedrockPacket {
         private boolean trustedSkin;
         private long uid;
         private boolean subClient;
+        private Color color;
+    }
+
+    @Override
+    public PlayerListPacket clone() {
+        try {
+            return (PlayerListPacket) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError(e);
+        }
     }
 }
+

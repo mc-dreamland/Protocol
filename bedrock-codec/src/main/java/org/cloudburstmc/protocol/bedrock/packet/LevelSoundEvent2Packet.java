@@ -7,6 +7,10 @@ import org.cloudburstmc.math.vector.Vector3f;
 import org.cloudburstmc.protocol.bedrock.data.SoundEvent;
 import org.cloudburstmc.protocol.common.PacketSignal;
 
+/**
+ * @deprecated since v786
+ */
+@Deprecated
 @Data
 @EqualsAndHashCode(doNotUseGetters = true)
 @ToString(doNotUseGetters = true)
@@ -26,4 +30,14 @@ public class LevelSoundEvent2Packet implements BedrockPacket {
     public BedrockPacketType getPacketType() {
         return BedrockPacketType.LEVEL_SOUND_EVENT_2;
     }
+
+    @Override
+    public LevelSoundEvent2Packet clone() {
+        try {
+            return (LevelSoundEvent2Packet) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError(e);
+        }
+    }
 }
+

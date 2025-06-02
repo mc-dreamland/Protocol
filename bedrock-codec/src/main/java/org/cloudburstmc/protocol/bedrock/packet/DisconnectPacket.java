@@ -13,6 +13,10 @@ public class DisconnectPacket implements BedrockPacket {
     private DisconnectFailReason reason = DisconnectFailReason.UNKNOWN;
     private boolean messageSkipped;
     private String kickMessage;
+    /**
+     * @since v712
+     */
+    private String filteredMessage = "";
 
     @Override
     public final PacketSignal handle(BedrockPacketHandler handler) {
@@ -22,4 +26,14 @@ public class DisconnectPacket implements BedrockPacket {
     public BedrockPacketType getPacketType() {
         return BedrockPacketType.DISCONNECT;
     }
+
+    @Override
+    public DisconnectPacket clone() {
+        try {
+            return (DisconnectPacket) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError(e);
+        }
+    }
 }
+

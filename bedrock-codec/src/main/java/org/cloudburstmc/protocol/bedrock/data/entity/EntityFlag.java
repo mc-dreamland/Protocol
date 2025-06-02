@@ -149,5 +149,25 @@ public enum EntityFlag {
     /**
      * @since v671
      */
-    BODY_ROTATION_BLOCKED
+    BODY_ROTATION_BLOCKED,
+    /**
+     * @since v776
+     */
+    RENDER_WHEN_INVISIBLE,
+    /**
+     * @since v786
+     */
+    BODY_ROTATION_AXIS_ALIGNED,
+    /**
+     * @since v786
+     */
+    COLLIDABLE,
+    /**
+     * @since v786
+     */
+    WASD_AIR_CONTROLLED,
+    /**
+     * @since v800
+     */
+    DOES_SERVER_AUTH_ONLY_DISMOUNT
 }

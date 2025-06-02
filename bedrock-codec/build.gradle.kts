@@ -1,10 +1,12 @@
 dependencies {
     api(projects.common)
+    api(platform(libs.fastutil.bom))
     api(libs.netty.buffer)
     api(libs.fastutil.long.common)
     api(libs.fastutil.long.`object`.maps)
     api(libs.jose4j)
     api(libs.nbt)
+    implementation(libs.jackson.annotations)
     api(libs.msgpack)
     api(libs.gson)
     api(libs.json)

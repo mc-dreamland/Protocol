@@ -9,7 +9,7 @@ import org.cloudburstmc.protocol.bedrock.codec.v332.serializer.LevelSoundEventSe
 import org.cloudburstmc.protocol.bedrock.codec.v361.serializer.LevelEventGenericSerializer_v361;
 import org.cloudburstmc.protocol.bedrock.codec.v575.BedrockCodecHelper_v575;
 import org.cloudburstmc.protocol.bedrock.codec.v622.Bedrock_v622;
-import org.cloudburstmc.protocol.bedrock.codec.v630.serializer.SetPlayerInventoryOptionsSerializer_v360;
+import org.cloudburstmc.protocol.bedrock.codec.v630.serializer.SetPlayerInventoryOptionsSerializer_v630;
 import org.cloudburstmc.protocol.bedrock.codec.v630.serializer.ShowStoreOfferSerializer_v630;
 import org.cloudburstmc.protocol.bedrock.codec.v630.serializer.ToggleCrafterSlotRequestSerializer_v630;
 import org.cloudburstmc.protocol.bedrock.data.*;
@@ -50,6 +50,12 @@ public class Bedrock_v630 extends Bedrock_v622 {
             .insert(481, SoundEvent.DECORATED_POT_INSERT)
             .insert(482, SoundEvent.DECORATED_POT_INSERT_FAILED)
             .insert(483, SoundEvent.CRAFTER_DISABLE_SLOT)
+            .insert(484, SoundEvent.TRIAL_SPAWNER_OPEN_SHUTTER)
+            .insert(485, SoundEvent.TRIAL_SPAWNER_EJECT_ITEM)
+            .insert(486, SoundEvent.TRIAL_SPAWNER_DETECT_PLAYER)
+            .insert(487, SoundEvent.TRIAL_SPAWNER_SPAWN_MOB)
+            .insert(488, SoundEvent.TRIAL_SPAWNER_CLOSE_SHUTTER)
+            .insert(489, SoundEvent.TRIAL_SPAWNER_AMBIENT)
             .insert(490, SoundEvent.COPPER_BULB_ON)
             .insert(491, SoundEvent.COPPER_BULB_OFF)
             .insert(492, SoundEvent.UNDEFINED)
@@ -68,6 +74,6 @@ public class Bedrock_v630 extends Bedrock_v622 {
             .updateSerializer(LevelSoundEventPacket.class, new LevelSoundEventSerializer_v332(SOUND_EVENTS))
             .updateSerializer(ShowStoreOfferPacket.class, ShowStoreOfferSerializer_v630.INSTANCE)
             .registerPacket(ToggleCrafterSlotRequestPacket::new, new ToggleCrafterSlotRequestSerializer_v630(), 306, PacketRecipient.SERVER)
-            .registerPacket(SetPlayerInventoryOptionsPacket::new, new SetPlayerInventoryOptionsSerializer_v360(), 307, PacketRecipient.BOTH)
+            .registerPacket(SetPlayerInventoryOptionsPacket::new, new SetPlayerInventoryOptionsSerializer_v630(), 307, PacketRecipient.BOTH)
             .build();
 }

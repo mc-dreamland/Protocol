@@ -13,6 +13,11 @@ public class ChangeDimensionPacket implements BedrockPacket {
     private int dimension;
     private Vector3f position;
     private boolean respawn;
+    /**
+     * Will be serialized as optional not present if null
+     * @since v712
+     */
+    private Integer loadingScreenId;
 
     @Override
     public final PacketSignal handle(BedrockPacketHandler handler) {
@@ -22,4 +27,14 @@ public class ChangeDimensionPacket implements BedrockPacket {
     public BedrockPacketType getPacketType() {
         return BedrockPacketType.CHANGE_DIMENSION;
     }
+
+    @Override
+    public ChangeDimensionPacket clone() {
+        try {
+            return (ChangeDimensionPacket) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError(e);
+        }
+    }
 }
+

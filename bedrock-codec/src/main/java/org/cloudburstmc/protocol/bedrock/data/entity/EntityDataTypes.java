@@ -275,5 +275,21 @@ public class EntityDataTypes {
     /**
      * @since v685
      */
-    public static final EntityDataType<NbtMap> VISIBLE_MOB_EFFECTS = new EntityDataType<>(NbtMap.class, "VISIBLE_MOB_EFFECTS");
+    public static final EntityDataType<Long> VISIBLE_MOB_EFFECTS = new EntityDataType<>(Long.class, "VISIBLE_MOB_EFFECTS");
+    /**
+     * @since v776
+     */
+    public static final EntityDataType<String> FILTERED_NAME = new EntityDataType<>(String.class, "FILTERED_NAME");
+    /**
+     * @since v776
+     */
+    public static final EntityDataType<Vector3f> BED_ENTER_POSITION = new EntityDataType<>(Vector3f.class, "BED_ENTER_POSITION");
+    /**
+     * @since v800
+     */
+    public static final EntityDataType<Float> SEAT_THIRD_PERSON_CAMERA_RADIUS = new EntityDataType<>(Float.class, "SEAT_THIRD_PERSON_CAMERA_RADIUS");
+    /**
+     * @since v800
+     */
+    public static final EntityDataType<Float> SEAT_CAMERA_RELAX_DISTANCE_SMOOTHING = new EntityDataType<>(Float.class, "SEAT_CAMERA_RELAX_DISTANCE_SMOOTHING");
 }

@@ -103,6 +103,9 @@ public class StartGamePacket implements BedrockPacket {
     private int enchantmentSeed;
     private NbtList<NbtMap> blockPalette;
     private final List<BlockPropertyData> blockProperties = new ObjectArrayList<>();
+    /**
+     * @deprecated since v776. Use ItemComponentPacket instead.
+     */
     private List<ItemDefinition> itemDefinitions = new ObjectArrayList<>();
     private String multiplayerCorrelationId;
     /**
@@ -191,4 +194,14 @@ public class StartGamePacket implements BedrockPacket {
     public BedrockPacketType getPacketType() {
         return BedrockPacketType.START_GAME;
     }
+
+    @Override
+    public StartGamePacket clone() {
+        try {
+            return (StartGamePacket) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError(e);
+        }
+    }
 }
+

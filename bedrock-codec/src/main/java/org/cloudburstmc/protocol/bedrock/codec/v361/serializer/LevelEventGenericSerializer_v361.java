@@ -13,7 +13,7 @@ import org.cloudburstmc.protocol.common.util.VarInts;
 @RequiredArgsConstructor
 public class LevelEventGenericSerializer_v361 implements BedrockPacketSerializer<LevelEventGenericPacket> {
 
-    private final TypeMap<LevelEventType> typeMap;
+    protected final TypeMap<LevelEventType> typeMap;
 
     @Override
     public void serialize(ByteBuf buffer, BedrockCodecHelper helper, LevelEventGenericPacket packet) {

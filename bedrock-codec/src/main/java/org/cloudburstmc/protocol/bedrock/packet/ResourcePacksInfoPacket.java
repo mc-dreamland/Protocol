@@ -5,11 +5,15 @@ import lombok.*;
 import org.cloudburstmc.protocol.common.PacketSignal;
 
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @EqualsAndHashCode(doNotUseGetters = true)
 @ToString(doNotUseGetters = true)
 public class ResourcePacksInfoPacket implements BedrockPacket {
+    /**
+     * @deprecated since v729
+     */
     private final List<Entry> behaviorPackInfos = new ObjectArrayList<>();
     private final List<Entry> resourcePackInfos = new ObjectArrayList<>();
     private boolean forcedToAccept;
@@ -20,12 +24,17 @@ public class ResourcePacksInfoPacket implements BedrockPacket {
     private boolean scriptingEnabled;
     /**
      * @since v448
+     * @deprecated since v729
      */
     private boolean forcingServerPacksEnabled;
     /**
-     * @since v618
+     * @since v766
      */
-    private List<CDNEntry> CDNEntries = new ObjectArrayList<>();
+    private UUID worldTemplateId;
+    /**
+     * @since v766
+     */
+    private String worldTemplateVersion;
 
     @Override
     public final PacketSignal handle(BedrockPacketHandler handler) {
@@ -36,21 +45,34 @@ public class ResourcePacksInfoPacket implements BedrockPacket {
         return BedrockPacketType.RESOURCE_PACKS_INFO;
     }
 
-    @Value
+    @Data
+    @AllArgsConstructor
     public static class Entry {
-        private final String packId;
-        private final String packVersion;
-        private final long packSize;
-        private final String contentKey;
-        private final String subPackName;
-        private final String contentId;
-        private final boolean scripting;
-        private final boolean raytracingCapable;
+        private UUID packId;
+        private String packVersion;
+        private long packSize;
+        private String contentKey;
+        private String subPackName;
+        private String contentId;
+        private boolean scripting;
+        private boolean raytracingCapable;
+        /**
+         * @since v712
+         */
+        private boolean addonPack;
+        /**
+         * @since v748
+         */
+        private String cdnUrl;
     }
 
-    @Value
-    public static class CDNEntry {
-        private final String packId;
-        private final String remoteUrl;
+    @Override
+    public ResourcePacksInfoPacket clone() {
+        try {
+            return (ResourcePacksInfoPacket) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError(e);
+        }
     }
 }
+

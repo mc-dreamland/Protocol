@@ -70,5 +70,9 @@ public enum PlayerActionType {
     /**
      * @since v622
      */
-    RECEIVED_SERVER_DATA
+    RECEIVED_SERVER_DATA,
+    /**
+     * @since v748
+     */
+    START_USING_ITEM
 }

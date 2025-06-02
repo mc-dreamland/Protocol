@@ -12,6 +12,7 @@ public class AbilityLayer {
     private final Set<Ability> abilityValues = EnumSet.noneOf(Ability.class);
     private float flySpeed;
     private float walkSpeed;
+    private float verticalFlySpeed;
 
     public enum Type {
         CACHE,
@@ -21,6 +22,10 @@ public class AbilityLayer {
         /**
          * @since v557
          */
-        EDITOR
+        EDITOR,
+        /**
+         * @since v712
+         */
+        LOADING_SCREEN
     }
 }

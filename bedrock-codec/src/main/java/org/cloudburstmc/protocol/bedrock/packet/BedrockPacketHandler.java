@@ -845,4 +845,72 @@ public interface BedrockPacketHandler extends PacketHandler {
     default PacketSignal handle(AwardAchievementPacket packet) {
         return PacketSignal.UNHANDLED;
     }
+
+    default PacketSignal handle(ClientboundCloseFormPacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
+
+    default PacketSignal handle(ServerboundLoadingScreenPacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
+
+    default PacketSignal handle(JigsawStructureDataPacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
+
+    default PacketSignal handle(CurrentStructureFeaturePacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
+
+    default PacketSignal handle(ServerboundDiagnosticsPacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
+
+    default PacketSignal handle(CameraAimAssistPacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
+
+    default PacketSignal handle(ContainerRegistryCleanupPacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
+
+    default PacketSignal handle(MovementEffectPacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
+
+    default PacketSignal handle(SetMovementAuthorityPacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
+
+    default PacketSignal handle(CameraAimAssistPresetsPacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
+
+    default PacketSignal handle(CameraAimAssistInstructionPacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
+
+    default PacketSignal handle(MovementPredictionSyncPacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
+
+    default PacketSignal handle(UpdateClientOptionsPacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
+
+    default PacketSignal handle(PlayerVideoCapturePacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
+
+    default PacketSignal handle(PlayerUpdateEntityOverridesPacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
+
+    default PacketSignal handle(PlayerLocationPacket playerLocationPacket) {
+        return PacketSignal.UNHANDLED;
+    }
+
+    default PacketSignal handle(ClientboundControlSchemeSetPacket clientboundControlSchemeSetPacket) {
+        return PacketSignal.UNHANDLED;
+    }
 }

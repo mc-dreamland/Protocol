@@ -11,6 +11,10 @@ import org.cloudburstmc.protocol.common.PacketSignal;
 public class StopSoundPacket implements BedrockPacket {
     private String soundName;
     private boolean stoppingAllSound;
+    /**
+     * @since v712
+     */
+    private boolean stopMusicLegacy;
 
     @Override
     public final PacketSignal handle(BedrockPacketHandler handler) {
@@ -20,4 +24,14 @@ public class StopSoundPacket implements BedrockPacket {
     public BedrockPacketType getPacketType() {
         return BedrockPacketType.STOP_SOUND;
     }
+
+    @Override
+    public StopSoundPacket clone() {
+        try {
+            return (StopSoundPacket) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError(e);
+        }
+    }
 }
+

@@ -41,6 +41,12 @@ public enum LevelEvent implements LevelEventType {
     SOUND_INK_SACE_USED,
     SOUND_AMETHYST_RESONATE,
 
+    // music since v417
+    QUEUE_CUSTOM_MUSIC,
+    PLAY_CUSTOM_MUSIC,
+    STOP_CUSTOM_MUSIC,
+    SET_MUSIC_VOLUME,
+
     // particles
     PARTICLE_SHOOT,
     PARTICLE_DESTROY_BLOCK,
@@ -92,9 +98,9 @@ public enum LevelEvent implements LevelEventType {
      * @since v649
      */
     PARTICLE_WIND_EXPLOSION,
-    PARTICLE_TRAIL_SPAWNER_DETECTION,
-    PARTICLE_TRAIL_SPAWNER_SPAWNING,
-    PARTICLE_TRAIL_SPAWNER_EJECTING,
+    PARTICLE_TRIAL_SPAWNER_DETECTION,
+    PARTICLE_TRIAL_SPAWNER_SPAWNING,
+    PARTICLE_TRIAL_SPAWNER_EJECTING,
     /**
      * @since v662
      */
@@ -105,6 +111,11 @@ public enum LevelEvent implements LevelEventType {
     PARTICLE_TRIAL_SPAWNER_DETECTION_CHARGED,
     PARTICLE_TRIAL_SPAWNER_BECOME_CHARGED,
     PARTICLE_SMASH_ATTACK_GROUND_DUST,
+    /**
+     * @since v766
+     * @deprecated since v776
+     */
+    PARTICLE_CREAKING_HEART_TRIAL,
 
     SCULK_CATALYST_BLOOM,
     SCULK_CHARGE,

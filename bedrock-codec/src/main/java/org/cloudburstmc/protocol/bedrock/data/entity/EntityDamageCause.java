@@ -32,7 +32,12 @@ public enum EntityDamageCause {
     STALACTITE,
     STALAGMITE,
     CAMPFIRE,
-    SOUL_CAMPFIRE;
+    SOUL_CAMPFIRE,
+    /**
+     * @since v729
+     * @deprecated since v776
+     */
+    MACE_SMASH;
 
     private static final EntityDamageCause[] VALUES = EntityDamageCause.values();
 

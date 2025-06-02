@@ -5,7 +5,7 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.cloudburstmc.protocol.bedrock.data.inventory.ComponentItemData;
+import org.cloudburstmc.protocol.bedrock.data.definitions.ItemDefinition;
 import org.cloudburstmc.protocol.common.PacketSignal;
 
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.List;
 @ToString(doNotUseGetters = true)
 public class ItemComponentPacket implements BedrockPacket {
 
-    private final List<ComponentItemData> items = new ObjectArrayList<>();
+    private final List<ItemDefinition> items = new ObjectArrayList<>();
 
     @Override
     public PacketSignal handle(BedrockPacketHandler handler) {
@@ -29,4 +29,14 @@ public class ItemComponentPacket implements BedrockPacket {
     public BedrockPacketType getPacketType() {
         return BedrockPacketType.ITEM_COMPONENT;
     }
+
+    @Override
+    public ItemComponentPacket clone() {
+        try {
+            return (ItemComponentPacket) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError(e);
+        }
+    }
 }
+

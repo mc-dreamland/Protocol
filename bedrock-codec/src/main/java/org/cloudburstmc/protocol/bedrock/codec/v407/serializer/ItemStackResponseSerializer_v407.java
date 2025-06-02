@@ -53,7 +53,7 @@ public class ItemStackResponseSerializer_v407 implements BedrockPacketSerializer
 
                 List<ItemStackResponseSlot> itemEntries = new ArrayList<>();
                 helper.readArray(buf2, itemEntries, byteBuf -> this.readItemEntry(byteBuf, helper));
-                return new ItemStackResponseContainer(container, itemEntries);
+                return new ItemStackResponseContainer(container, itemEntries, null);
             });
             return new ItemStackResponse(success, requestId, containerEntries);
         });
@@ -66,7 +66,8 @@ public class ItemStackResponseSerializer_v407 implements BedrockPacketSerializer
                 buffer.readUnsignedByte(),
                 VarInts.readInt(buffer),
                 "",
-                0);
+                0,
+                "");
     }
 
     protected void writeItemEntry(ByteBuf buffer, BedrockCodecHelper helper, ItemStackResponseSlot itemEntry) {

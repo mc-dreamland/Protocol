@@ -22,6 +22,10 @@ public class SetTitlePacket implements BedrockPacket {
      * @since v448
      */
     private String platformOnlineId;
+    /**
+     * @since v712
+     */
+    private String filteredTitleText = "";
 
     @Override
     public final PacketSignal handle(BedrockPacketHandler handler) {
@@ -43,4 +47,14 @@ public class SetTitlePacket implements BedrockPacket {
         SUBTITLE_JSON,
         ACTIONBAR_JSON
     }
+
+    @Override
+    public SetTitlePacket clone() {
+        try {
+            return (SetTitlePacket) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError(e);
+        }
+    }
 }
+
