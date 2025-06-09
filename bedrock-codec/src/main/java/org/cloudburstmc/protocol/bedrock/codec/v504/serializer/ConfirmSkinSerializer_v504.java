@@ -46,11 +46,12 @@ public class ConfirmSkinSerializer_v504 implements BedrockPacketSerializer<Confi
 
     @Override
     public void deserialize(ByteBuf buffer, BedrockCodecHelper helper, ConfirmSkinPacket packet) {
-        VarInts.readUnsignedInt(buffer);
-        buffer.readBoolean();
-        helper.readUuid(buffer);
-        helper.readByteArray(buffer);
-        helper.readString(buffer);
-        helper.readString(buffer);
+        packet.setUnknownInt(VarInts.readUnsignedInt(buffer));
+        packet.setUnknownBoolean(buffer.readBoolean());
+        packet.setUuid(helper.readUuid(buffer));
+        packet.setSkinData(helper.readByteArray(buffer));
+        packet.setGeometry(helper.readString(buffer));
+        packet.setUnknown(helper.readString(buffer));
+
     }
 }

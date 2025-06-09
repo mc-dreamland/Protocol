@@ -30,7 +30,7 @@ public class Bedrock_v712 extends Bedrock_v686 {
 
     protected static final TypeMap<ContainerSlotType> CONTAINER_SLOT_TYPES = Bedrock_v686.CONTAINER_SLOT_TYPES
             .toBuilder()
-            .insert(63, ContainerSlotType.DYNAMIC_CONTAINER)
+            .insert(64, ContainerSlotType.DYNAMIC_CONTAINER)
             .build();
 
     public static final BedrockCodec CODEC = Bedrock_v686.CODEC.toBuilder()

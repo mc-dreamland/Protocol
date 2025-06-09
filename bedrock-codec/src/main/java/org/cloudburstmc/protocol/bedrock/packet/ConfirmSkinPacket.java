@@ -38,10 +38,13 @@ import java.util.UUID;
 @EqualsAndHashCode(doNotUseGetters = true)
 @ToString(doNotUseGetters = true)
 public class ConfirmSkinPacket implements BedrockPacket {
+    private int unknownInt;
+    private boolean unknownBoolean;
     private long uid;
     private UUID uuid;
     private byte[] skinData;
     private String geometry;
+    private String unknown;
 
     public ConfirmSkinPacket(){
     }
@@ -62,5 +65,14 @@ public class ConfirmSkinPacket implements BedrockPacket {
     @Override
     public BedrockPacketType getPacketType() {
         return BedrockPacketType.CONFIRM_SKIN;
+    }
+
+    @Override
+    public BedrockPacket clone() {
+        try {
+            return (BedrockPacket) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError(e);
+        }
     }
 }

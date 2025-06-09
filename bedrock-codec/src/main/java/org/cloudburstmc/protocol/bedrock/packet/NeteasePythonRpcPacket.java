@@ -140,6 +140,15 @@ public class NeteasePythonRpcPacket implements BedrockPacket {
         return BedrockPacketType.NETEASE_CUSTOM;
     }
 
+    @Override
+    public NeteasePythonRpcPacket clone() {
+        try {
+            return (NeteasePythonRpcPacket) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError(e);
+        }
+    }
+
     @SneakyThrows
     private Object initJsonObject() {
         Gson gson = new Gson();

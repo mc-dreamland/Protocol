@@ -8,14 +8,18 @@ import org.cloudburstmc.protocol.bedrock.codec.v313.serializer.LevelSoundEvent2S
 import org.cloudburstmc.protocol.bedrock.codec.v332.serializer.LevelSoundEventSerializer_v332;
 import org.cloudburstmc.protocol.bedrock.codec.v361.serializer.LevelEventGenericSerializer_v361;
 import org.cloudburstmc.protocol.bedrock.codec.v448.serializer.AvailableCommandsSerializer_v448;
+import org.cloudburstmc.protocol.bedrock.codec.v503.BedrockCodecHelper_v503;
+import org.cloudburstmc.protocol.bedrock.codec.v503.Bedrock_v503;
 import org.cloudburstmc.protocol.bedrock.codec.v504.BedrockCodecHelper_v504;
 import org.cloudburstmc.protocol.bedrock.codec.v504.Bedrock_v504;
 import org.cloudburstmc.protocol.bedrock.codec.v527.serializer.*;
 import org.cloudburstmc.protocol.bedrock.data.*;
 import org.cloudburstmc.protocol.bedrock.data.command.CommandParam;
+import org.cloudburstmc.protocol.bedrock.data.entity.EntityDataFormat;
 import org.cloudburstmc.protocol.bedrock.data.entity.EntityDataTypes;
 import org.cloudburstmc.protocol.bedrock.data.entity.EntityFlag;
 import org.cloudburstmc.protocol.bedrock.packet.*;
+import org.cloudburstmc.protocol.bedrock.transformer.BooleanTransformer;
 import org.cloudburstmc.protocol.bedrock.transformer.FlagTransformer;
 import org.cloudburstmc.protocol.bedrock.transformer.TypeMapTransformer;
 import org.cloudburstmc.protocol.common.util.TypeMap;
@@ -34,6 +38,9 @@ public class Bedrock_v527 extends Bedrock_v504 {
             .update(EntityDataTypes.FLAGS, new FlagTransformer(ENTITY_FLAGS, 0))
             .update(EntityDataTypes.FLAGS_2, new FlagTransformer(ENTITY_FLAGS, 1))
             .update(EntityDataTypes.AREA_EFFECT_CLOUD_PARTICLE, new TypeMapTransformer<>(PARTICLE_TYPES))
+            .insert(EntityDataTypes.PLAYER_LAST_DEATH_POS, 128, EntityDataFormat.VECTOR3I)
+            .insert(EntityDataTypes.PLAYER_LAST_DEATH_DIMENSION, 129, EntityDataFormat.INT)
+            .insert(EntityDataTypes.PLAYER_HAS_DIED, 130, EntityDataFormat.BYTE, BooleanTransformer.INSTANCE)
             .build();
 
     protected static final TypeMap<CommandParam> COMMAND_PARAMS = Bedrock_v504.COMMAND_PARAMS.toBuilder()

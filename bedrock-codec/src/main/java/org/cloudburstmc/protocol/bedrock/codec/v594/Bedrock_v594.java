@@ -2,7 +2,6 @@ package org.cloudburstmc.protocol.bedrock.codec.v594;
 
 import org.cloudburstmc.protocol.bedrock.codec.BedrockCodec;
 import org.cloudburstmc.protocol.bedrock.codec.EntityDataTypeMap;
-import org.cloudburstmc.protocol.bedrock.codec.v428.serializer.ItemStackResponseSerializer_v428;
 import org.cloudburstmc.protocol.bedrock.codec.v575.BedrockCodecHelper_v575;
 import org.cloudburstmc.protocol.bedrock.codec.v575.Bedrock_v575;
 import org.cloudburstmc.protocol.bedrock.codec.v582.Bedrock_v582;
@@ -10,12 +9,13 @@ import org.cloudburstmc.protocol.bedrock.codec.v589.Bedrock_v589;
 import org.cloudburstmc.protocol.bedrock.codec.v594.serializer.AgentAnimationSerializer_v594;
 import org.cloudburstmc.protocol.bedrock.codec.v594.serializer.AvailableCommandsSerializer_v594;
 import org.cloudburstmc.protocol.bedrock.data.PacketRecipient;
-import org.cloudburstmc.protocol.bedrock.codec.v594.serializer.ItemStackResponseSerializer_v594;
 import org.cloudburstmc.protocol.bedrock.data.command.CommandParam;
 import org.cloudburstmc.protocol.bedrock.data.entity.EntityDataFormat;
 import org.cloudburstmc.protocol.bedrock.data.entity.EntityDataTypes;
 import org.cloudburstmc.protocol.bedrock.data.entity.EntityFlag;
-import org.cloudburstmc.protocol.bedrock.packet.*;
+import org.cloudburstmc.protocol.bedrock.packet.AgentAnimationPacket;
+import org.cloudburstmc.protocol.bedrock.packet.AvailableCommandsPacket;
+import org.cloudburstmc.protocol.bedrock.packet.ScriptCustomEventPacket;
 import org.cloudburstmc.protocol.bedrock.transformer.FlagTransformer;
 import org.cloudburstmc.protocol.common.util.TypeMap;
 
@@ -44,7 +44,6 @@ public class Bedrock_v594 extends Bedrock_v589 {
             .minecraftVersion("1.20.10")
             .helper(() -> new BedrockCodecHelper_v575(ENTITY_DATA, GAME_RULE_TYPES, ITEM_STACK_REQUEST_TYPES, CONTAINER_SLOT_TYPES, PLAYER_ABILITIES, TEXT_PROCESSING_ORIGINS))
             .deregisterPacket(ScriptCustomEventPacket.class)
-            .updateSerializer(ItemStackResponsePacket.class, ItemStackResponseSerializer_v594.INSTANCE)
             .updateSerializer(AvailableCommandsPacket.class, new AvailableCommandsSerializer_v594(COMMAND_PARAMS))
             .registerPacket(AgentAnimationPacket::new, new AgentAnimationSerializer_v594(), 304, PacketRecipient.CLIENT)
             .build();
