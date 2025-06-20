@@ -32,29 +32,21 @@ import lombok.SneakyThrows;
 import lombok.ToString;
 import org.cloudburstmc.protocol.common.PacketSignal;
 
+import java.util.List;
 import java.util.UUID;
 
 @Data
 @EqualsAndHashCode(doNotUseGetters = true)
 @ToString(doNotUseGetters = true)
 public class ConfirmSkinPacket implements BedrockPacket {
-    private int unknownInt;
-    private boolean unknownBoolean;
-    private long uid;
-    private UUID uuid;
-    private byte[] skinData;
-    private String geometry;
-    private String unknown;
+    private List<PlayerListPacket.Entry> entries;
 
     public ConfirmSkinPacket(){
     }
 
     @SneakyThrows
-    public ConfirmSkinPacket(UUID uuid, int uid, byte[] skinData, String geometry) {
-        this.uid = uid;
-        this.uuid = uuid;
-        this.skinData = skinData;
-        this.geometry = geometry;
+    public ConfirmSkinPacket(List<PlayerListPacket.Entry> entries) {
+        this.entries = entries;
     }
 
     @Override

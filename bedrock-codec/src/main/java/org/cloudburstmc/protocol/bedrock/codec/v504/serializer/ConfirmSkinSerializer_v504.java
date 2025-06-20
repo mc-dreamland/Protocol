@@ -29,29 +29,31 @@ import io.netty.buffer.ByteBuf;
 import org.cloudburstmc.protocol.bedrock.codec.BedrockCodecHelper;
 import org.cloudburstmc.protocol.bedrock.codec.BedrockPacketSerializer;
 import org.cloudburstmc.protocol.bedrock.packet.ConfirmSkinPacket;
+import org.cloudburstmc.protocol.bedrock.packet.PlayerListPacket;
 import org.cloudburstmc.protocol.common.util.VarInts;
 
 public class ConfirmSkinSerializer_v504 implements BedrockPacketSerializer<ConfirmSkinPacket> {
 
     @Override
     public void serialize(ByteBuf buffer, BedrockCodecHelper helper, ConfirmSkinPacket packet) {
+        VarInts.writeUnsignedInt(buffer, packet.getEntries().size());
+        for(PlayerListPacket.Entry entry : packet.getEntries()){
+            buffer.writeBoolean(true);
+            helper.writeUuid(buffer, entry.getUuid());
+            helper.writeByteArray(buffer, entry.getSkin().getSkinData().getImage());
+        }
+        for(PlayerListPacket.Entry entry : packet.getEntries()){
+            helper.writeString(buffer, String.valueOf(entry.getUid()));
+        }
+        for(PlayerListPacket.Entry entry : packet.getEntries()){
+            helper.writeString(buffer, entry.getSkin().getGeometryData());
+        }
 
-        VarInts.writeUnsignedInt(buffer, 1);
-        buffer.writeBoolean(true);
-        helper.writeUuid(buffer, packet.getUuid());
-        helper.writeByteArray(buffer, packet.getSkinData());
-        helper.writeString(buffer, String.valueOf(packet.getUid()));
-        helper.writeString(buffer, packet.getGeometry());
     }
 
     @Override
     public void deserialize(ByteBuf buffer, BedrockCodecHelper helper, ConfirmSkinPacket packet) {
-        packet.setUnknownInt(VarInts.readUnsignedInt(buffer));
-        packet.setUnknownBoolean(buffer.readBoolean());
-        packet.setUuid(helper.readUuid(buffer));
-        packet.setSkinData(helper.readByteArray(buffer));
-        packet.setGeometry(helper.readString(buffer));
-        packet.setUnknown(helper.readString(buffer));
+
 
     }
 }

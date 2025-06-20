@@ -8,6 +8,9 @@ public enum GamePublishSetting {
     PUBLIC;
 
     public static GamePublishSetting byId(int id) {
+        if (id <= 0) {
+            return PUBLIC;
+        }
         return values()[id];
     }
 }
