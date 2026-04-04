@@ -28,6 +28,9 @@ public class BiomeDefinitionData {
     float scale;
     Color mapWaterColor;
     boolean rain;
+    int dimension;// NetEase
+    @Nullable
+    String vanilla;// NetEase
     @Nullable
     @Getter(AccessLevel.NONE)
     transient Indexable<List<String>> tags;
@@ -35,23 +38,39 @@ public class BiomeDefinitionData {
     BiomeDefinitionChunkGenData chunkGenData;
 
     @JsonCreator
+    public BiomeDefinitionData(@Nullable String id, float temperature, float downfall, float redSporeDensity, float blueSporeDensity, float ashDensity, float whiteAshDensity, float foliageSnow, float depth, float scale, Color mapWaterColor, boolean rain, int dimension, @Nullable String vanilla, @Nullable List<String> tags, @Nullable BiomeDefinitionChunkGenData chunkGenData) {
+        this(id == null ? null : new Unindexed<>(id), temperature, downfall, redSporeDensity, blueSporeDensity, ashDensity, whiteAshDensity, foliageSnow, depth, scale, mapWaterColor, rain, dimension, vanilla, tags == null ? null : new Unindexed<>(tags), chunkGenData);
+    }
+
     public BiomeDefinitionData(@Nullable String id, float temperature, float downfall, float redSporeDensity, float blueSporeDensity, float ashDensity, float whiteAshDensity, float foliageSnow, float depth, float scale, Color mapWaterColor, boolean rain, @Nullable List<String> tags, @Nullable BiomeDefinitionChunkGenData chunkGenData) {
-        this(id == null ? null : new Unindexed<>(id), temperature, downfall, redSporeDensity, blueSporeDensity, ashDensity, whiteAshDensity, foliageSnow, depth, scale, mapWaterColor, rain, tags == null ? null : new Unindexed<>(tags), chunkGenData);
+        this(id, temperature, downfall, redSporeDensity, blueSporeDensity, ashDensity, whiteAshDensity, foliageSnow, depth, scale, mapWaterColor, rain, 0, null, tags, chunkGenData);
+    }
+
+    public BiomeDefinitionData(@Nullable String id, float temperature, float downfall, float foliageSnow, float depth, float scale, Color mapWaterColor, boolean rain, int dimension, @Nullable String vanilla, @Nullable List<String> tags, @Nullable BiomeDefinitionChunkGenData chunkGenData) {
+        this(id == null ? null : new Unindexed<>(id), temperature, downfall, 0, 0, 0, 0, foliageSnow, depth, scale, mapWaterColor, rain, dimension, vanilla, tags == null ? null : new Unindexed<>(tags), chunkGenData);
     }
 
     public BiomeDefinitionData(@Nullable String id, float temperature, float downfall, float foliageSnow, float depth, float scale, Color mapWaterColor, boolean rain, @Nullable List<String> tags, @Nullable BiomeDefinitionChunkGenData chunkGenData) {
-        this(id == null ? null : new Unindexed<>(id), temperature, downfall, 0, 0, 0, 0, foliageSnow, depth, scale, mapWaterColor, rain, tags == null ? null : new Unindexed<>(tags), chunkGenData);
+        this(id, temperature, downfall, foliageSnow, depth, scale, mapWaterColor, rain, 0, null, tags, chunkGenData);
+    }
+
+    public BiomeDefinitionData(@Nullable Indexable<String> id, float temperature, float downfall, float foliageSnow, float depth, float scale, Color mapWaterColor, boolean rain, int dimension, @Nullable String vanilla, @Nullable Indexable<List<String>> tags, @Nullable BiomeDefinitionChunkGenData chunkGenData) {
+        this(id, temperature, downfall, 0, 0, 0, 0, foliageSnow, depth, scale, mapWaterColor, rain, dimension, vanilla, tags, chunkGenData);
     }
 
     public BiomeDefinitionData(@Nullable Indexable<String> id, float temperature, float downfall, float foliageSnow, float depth, float scale, Color mapWaterColor, boolean rain, @Nullable Indexable<List<String>> tags, @Nullable BiomeDefinitionChunkGenData chunkGenData) {
-        this(id, temperature, downfall, 0, 0, 0, 0, foliageSnow, depth, scale, mapWaterColor, rain, tags, chunkGenData);
+        this(id, temperature, downfall, foliageSnow, depth, scale, mapWaterColor, rain, 0, null, tags, chunkGenData);
+    }
+
+    public BiomeDefinitionData(@Nullable Indexable<String> id, float temperature, float downfall, float redSporeDensity, float blueSporeDensity, float ashDensity, float whiteAshDensity, float depth, float scale, Color mapWaterColor, boolean rain, int dimension, @Nullable String vanilla, @Nullable Indexable<List<String>> tags, @Nullable BiomeDefinitionChunkGenData chunkGenData) {
+        this(id, temperature, downfall, redSporeDensity, blueSporeDensity, ashDensity, whiteAshDensity, 0, depth, scale, mapWaterColor, rain, dimension, vanilla, tags, chunkGenData);
     }
 
     public BiomeDefinitionData(@Nullable Indexable<String> id, float temperature, float downfall, float redSporeDensity, float blueSporeDensity, float ashDensity, float whiteAshDensity, float depth, float scale, Color mapWaterColor, boolean rain, @Nullable Indexable<List<String>> tags, @Nullable BiomeDefinitionChunkGenData chunkGenData) {
-        this(id, temperature, downfall, redSporeDensity, blueSporeDensity, ashDensity, whiteAshDensity, 0, depth, scale, mapWaterColor, rain, tags, chunkGenData);
+        this(id, temperature, downfall, redSporeDensity, blueSporeDensity, ashDensity, whiteAshDensity, depth, scale, mapWaterColor, rain, 0, null, tags, chunkGenData);
     }
 
-    private BiomeDefinitionData(@Nullable Indexable<String> id, float temperature, float downfall, float redSporeDensity, float blueSporeDensity, float ashDensity, float whiteAshDensity, float foliageSnow, float depth, float scale, Color mapWaterColor, boolean rain, @Nullable Indexable<List<String>> tags, @Nullable BiomeDefinitionChunkGenData chunkGenData) {
+    private BiomeDefinitionData(@Nullable Indexable<String> id, float temperature, float downfall, float redSporeDensity, float blueSporeDensity, float ashDensity, float whiteAshDensity, float foliageSnow, float depth, float scale, Color mapWaterColor, boolean rain, int dimension, @Nullable String vanilla, @Nullable Indexable<List<String>> tags, @Nullable BiomeDefinitionChunkGenData chunkGenData) {
         this.id = id;
         this.temperature = temperature;
         this.downfall = downfall;
@@ -64,6 +83,8 @@ public class BiomeDefinitionData {
         this.scale = scale;
         this.mapWaterColor = mapWaterColor;
         this.rain = rain;
+        this.dimension = dimension;
+        this.vanilla = vanilla;
         this.tags = tags;
         this.chunkGenData = chunkGenData;
     }

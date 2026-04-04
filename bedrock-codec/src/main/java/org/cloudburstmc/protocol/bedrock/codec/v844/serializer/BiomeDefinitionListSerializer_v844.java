@@ -63,7 +63,7 @@ public class BiomeDefinitionListSerializer_v844 extends BiomeDefinitionListSeria
                 (buf, aHelper) -> this.readDefinitionChunkGen(buf, aHelper, strings));
 
         return new BiomeDefinitionData(id, temperature, downfall, foliageSnow, depth, scale, mapWaterColor,
-                rain, tags, chunkGenData);
+                rain, 0, null, tags, chunkGenData);
     }
 
     @Override
