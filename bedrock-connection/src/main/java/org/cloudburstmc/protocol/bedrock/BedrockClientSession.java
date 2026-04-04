@@ -7,7 +7,7 @@ public class BedrockClientSession extends BedrockSession {
     }
 
     @Override
-    public void disconnect(String reason, boolean hideReason) {
+    public void disconnect(CharSequence reason, boolean hideReason) {
         this.close(reason);
     }
 }

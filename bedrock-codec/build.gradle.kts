@@ -10,6 +10,9 @@ dependencies {
     api(libs.msgpack)
     api(libs.gson)
     api(libs.json)
+
+    // Tests
+    testImplementation(libs.junit)
 }
 
 tasks.jar {

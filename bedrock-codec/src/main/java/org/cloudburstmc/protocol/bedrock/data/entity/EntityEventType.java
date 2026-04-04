@@ -71,5 +71,13 @@ public enum EntityEventType {
     LANDED_ON_GROUND,
     ENTITY_GROW_UP,
     VIBRATION_DETECTED,
-    DRINK_MILK
+    DRINK_MILK,
+    /**
+     * @since v859
+     */
+    SHAKE_WETNESS_STOP,
+    /**
+     * @since v897
+     */
+    KINETIC_DAMAGE_DEALT
 }

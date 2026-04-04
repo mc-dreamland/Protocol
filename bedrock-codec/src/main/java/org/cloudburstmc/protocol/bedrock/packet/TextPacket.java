@@ -13,16 +13,16 @@ import java.util.List;
 @ToString(doNotUseGetters = true)
 public class TextPacket implements BedrockPacket {
     private Type type;
-    private boolean needsTranslation;
     private String sourceName;
-    private String message;
+    private CharSequence message;
     private List<String> parameters = new ObjectArrayList<>();
+    private boolean needsTranslation;
     private String xuid;
     private String platformChatId = "";
     /**
      * @since v685
      */
-    private String filteredMessage = "";
+    private CharSequence filteredMessage = "";
 
     @Override
     public final PacketSignal handle(BedrockPacketHandler handler) {
@@ -58,6 +58,22 @@ public class TextPacket implements BedrockPacket {
         } catch (CloneNotSupportedException e) {
             throw new AssertionError(e);
         }
+    }
+
+    public String getMessage() {
+        return getMessage(String.class);
+    }
+
+    public <T extends CharSequence> T getMessage(Class<T> type) {
+        return type.cast(message);
+    }
+
+    public String getFilteredMessage() {
+        return getFilteredMessage(String.class);
+    }
+
+    public <T extends CharSequence> T getFilteredMessage(Class<T> type) {
+        return type.cast(filteredMessage);
     }
 }
 

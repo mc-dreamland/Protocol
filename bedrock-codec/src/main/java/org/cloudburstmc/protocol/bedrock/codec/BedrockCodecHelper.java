@@ -1,7 +1,6 @@
 package org.cloudburstmc.protocol.bedrock.codec;
 
 import io.netty.buffer.ByteBuf;
-import it.unimi.dsi.fastutil.ints.Int2ObjectFunction;
 import org.cloudburstmc.math.vector.Vector2f;
 import org.cloudburstmc.math.vector.Vector3f;
 import org.cloudburstmc.math.vector.Vector3i;
@@ -27,13 +26,22 @@ import org.cloudburstmc.protocol.bedrock.data.inventory.transaction.InventoryAct
 import org.cloudburstmc.protocol.bedrock.data.skin.SerializedSkin;
 import org.cloudburstmc.protocol.bedrock.data.structure.StructureSettings;
 import org.cloudburstmc.protocol.bedrock.packet.InventoryTransactionPacket;
+import org.cloudburstmc.protocol.common.util.TextConverter;
 import org.cloudburstmc.protocol.common.DefinitionRegistry;
 import org.cloudburstmc.protocol.common.NamedDefinition;
 import org.cloudburstmc.protocol.common.util.TriConsumer;
 import org.cloudburstmc.protocol.common.util.VarInts;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
+import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
+import java.util.function.Function;
+import java.util.function.ObjIntConsumer;
+import java.util.function.Predicate;
+import java.util.function.ToLongFunction;
 
 public interface BedrockCodecHelper {
 
@@ -50,6 +58,10 @@ public interface BedrockCodecHelper {
     DefinitionRegistry<NamedDefinition> getCameraPresetDefinitions();
 
     EncodingSettings getEncodingSettings();
+
+    TextConverter getTextConverter();
+
+    void setTextConverter(TextConverter textConverter);
 
     void setEncodingSettings(EncodingSettings settings);
 
@@ -122,6 +134,10 @@ public interface BedrockCodecHelper {
     GameRuleData<?> readGameRule(ByteBuf buffer);
 
     void writeGameRule(ByteBuf buffer, GameRuleData<?> gameRule);
+
+    void writeGameRuleInStartGame(ByteBuf buffer, GameRuleData<?> gameRule);
+
+    GameRuleData<?> readGameRuleInStartGame(ByteBuf buffer);
 
     void readEntityData(ByteBuf buffer, EntityDataMap entityData);
 

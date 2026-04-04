@@ -5,10 +5,14 @@ jackson = "2.18.0"
 gson = "2.3.1" # Provided by Spigot 1.8.8
 msgpack = "0.6.12"
 json = "1.1.1"
+adventure = "4.24.0"
+junit = "5.9.2"
 
 [libraries]
 checker-qual = { group = "org.checkerframework", name = "checker-qual", version.ref = "checkerframework" }
 checker = { group = "org.checkerframework", name = "checker", version.ref = "checkerframework" }
+adventure-text-serializer-legacy = { group = "net.kyori", name = "adventure-text-serializer-legacy", version.ref = "adventure" }
+adventure-text-serializer-json = { group = "net.kyori", name = "adventure-text-serializer-json", version.ref = "adventure" }
 
 fastutil-bom = { group = "org.cloudburstmc.fastutil", name = "bom", version = "8.5.15" }
 fastutil-long-common = { group = "org.cloudburstmc.fastutil.commons", name = "long-common" }
@@ -30,6 +34,8 @@ gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 json = { group = "com.googlecode.json-simple", name = "json-simple", version.ref = "json" }
 
 snappy = { group = "io.airlift", name = "aircompressor", version = "0.27" }
+
+junit = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "junit" }
 
 [plugins]
 checkerframework = { id = "org.checkerframework", version = "0.6.29" }

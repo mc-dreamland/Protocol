@@ -57,6 +57,7 @@ public class Bedrock_v527 extends Bedrock_v504 {
     protected static final TypeMap<SoundEvent> SOUND_EVENTS = Bedrock_v504.SOUND_EVENTS.toBuilder()
             .remove(423)
             .insert(426, SoundEvent.IMITATE_WARDEN)
+            .insert(427, SoundEvent.LISTENING_ANGRY)
             .insert(428, SoundEvent.ITEM_GIVEN)
             .insert(429, SoundEvent.ITEM_TAKEN)
             .insert(430, SoundEvent.DISAPPEARED)

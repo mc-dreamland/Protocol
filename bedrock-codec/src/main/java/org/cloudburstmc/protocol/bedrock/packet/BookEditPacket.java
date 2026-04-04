@@ -13,10 +13,10 @@ public class BookEditPacket implements BedrockPacket {
     private int inventorySlot;
     private int pageNumber;
     private int secondaryPageNumber;
-    private String text;
+    private CharSequence text;
     private String photoName;
-    private String title;
-    private String author;
+    private CharSequence title;
+    private CharSequence author;
     private String xuid;
 
     @Override
@@ -43,6 +43,30 @@ public class BookEditPacket implements BedrockPacket {
         } catch (CloneNotSupportedException e) {
             throw new AssertionError(e);
         }
+    }
+
+    public String getText() {
+        return getText(String.class);
+    }
+
+    public <T extends CharSequence> T getText(Class<T> type) {
+        return type.cast(text);
+    }
+
+    public String getTitle() {
+        return getTitle(String.class);
+    }
+
+    public <T extends CharSequence> T getTitle(Class<T> type) {
+        return type.cast(title);
+    }
+
+    public String getAuthor() {
+        return getAuthor(String.class);
+    }
+
+    public <T extends CharSequence> T getAuthor(Class<T> type) {
+        return type.cast(author);
     }
 }
 

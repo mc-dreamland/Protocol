@@ -23,7 +23,7 @@ public abstract class BedrockSession {
     protected final int subClientId;
     protected BedrockPacketHandler packetHandler;
     protected boolean logging;
-    protected String disconnectReason = BedrockDisconnectReasons.UNKNOWN;
+    protected CharSequence disconnectReason = BedrockDisconnectReasons.UNKNOWN;
 
     public BedrockSession(BedrockPeer peer, int subClientId) {
         this.peer = peer;
@@ -84,7 +84,7 @@ public abstract class BedrockSession {
         this.peer.enableEncryption(key);
     }
 
-    public void close(String reason) {
+    public void close(CharSequence reason) {
         checkForClosed();
 
         if (isSubClient()) {
@@ -151,11 +151,11 @@ public abstract class BedrockSession {
         this.logging = logging;
     }
 
-    public String getDisconnectReason() {
+    public CharSequence getDisconnectReason() {
         return disconnectReason;
     }
 
-    public void setDisconnectReason(String disconnectReason) {
+    public void setDisconnectReason(CharSequence disconnectReason) {
         this.disconnectReason = disconnectReason;
     }
 
@@ -163,11 +163,11 @@ public abstract class BedrockSession {
         disconnect("disconnect.disconnected");
     }
 
-    public final void disconnect(String reason) {
+    public final void disconnect(CharSequence reason) {
         this.disconnect(reason, false);
     }
 
-    public abstract void disconnect(String reason, boolean hideReason);
+    public abstract void disconnect(CharSequence reason, boolean hideReason);
 
     public boolean isConnected() {
         return !this.closed.get();

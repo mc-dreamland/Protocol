@@ -12,11 +12,11 @@ import org.cloudburstmc.protocol.common.PacketSignal;
 public class DisconnectPacket implements BedrockPacket {
     private DisconnectFailReason reason = DisconnectFailReason.UNKNOWN;
     private boolean messageSkipped;
-    private String kickMessage;
+    private CharSequence kickMessage;
     /**
      * @since v712
      */
-    private String filteredMessage = "";
+    private CharSequence filteredMessage = "";
 
     @Override
     public final PacketSignal handle(BedrockPacketHandler handler) {
@@ -34,6 +34,22 @@ public class DisconnectPacket implements BedrockPacket {
         } catch (CloneNotSupportedException e) {
             throw new AssertionError(e);
         }
+    }
+
+    public String getKickMessage() {
+        return getKickMessage(String.class);
+    }
+
+    public <T extends CharSequence> T getKickMessage(Class<T> type) {
+        return type.cast(kickMessage);
+    }
+
+    public String getFilteredMessage() {
+        return getFilteredMessage(String.class);
+    }
+
+    public <T extends CharSequence> T getFilteredMessage(Class<T> type) {
+        return type.cast(filteredMessage);
     }
 }
 

@@ -20,12 +20,11 @@ import org.cloudburstmc.protocol.bedrock.codec.BedrockCodecHelper;
 import org.cloudburstmc.protocol.bedrock.codec.v428.Bedrock_v428;
 import org.cloudburstmc.protocol.bedrock.data.PacketCompressionAlgorithm;
 import org.cloudburstmc.protocol.bedrock.netty.BedrockPacketWrapper;
+import org.cloudburstmc.protocol.bedrock.netty.codec.BlackholeInboundAdapter;
 import org.cloudburstmc.protocol.bedrock.netty.codec.FrameIdCodec;
 import org.cloudburstmc.protocol.bedrock.netty.codec.batch.BedrockBatchDecoder;
-import org.cloudburstmc.protocol.bedrock.netty.codec.compression.BatchCompression;
 import org.cloudburstmc.protocol.bedrock.netty.codec.compression.CompressionCodec;
 import org.cloudburstmc.protocol.bedrock.netty.codec.compression.CompressionStrategy;
-import org.cloudburstmc.protocol.bedrock.netty.codec.compression.SimpleCompressionStrategy;
 import org.cloudburstmc.protocol.bedrock.netty.codec.encryption.BedrockEncryptionDecoder;
 import org.cloudburstmc.protocol.bedrock.netty.codec.encryption.BedrockEncryptionEncoder;
 import org.cloudburstmc.protocol.bedrock.netty.codec.packet.BedrockPacketCodec;
@@ -97,7 +96,7 @@ public class BedrockPeer extends ChannelInboundHandlerAdapter {
     }
 
     private void onRakNetDisconnect(ChannelHandlerContext ctx, RakDisconnectReason reason) {
-        String disconnectReason = BedrockDisconnectReasons.getReason(reason);
+        CharSequence disconnectReason = BedrockDisconnectReasons.getReason(reason);
         for (BedrockSession session : this.sessions.values()) {
             session.disconnectReason = disconnectReason;
         }
@@ -115,6 +114,13 @@ public class BedrockPeer extends ChannelInboundHandlerAdapter {
 
     public void sendPacketImmediately(int senderClientId, int targetClientId, BedrockPacket packet) {
         this.channel.writeAndFlush(BedrockPacketWrapper.create(0, senderClientId, targetClientId, packet, null));
+    }
+
+    public void sendPacketsImmediately(int senderClientId, int targetClientId, BedrockPacket... packets) {
+        for (BedrockPacket packet : packets) {
+            this.channel.write(BedrockPacketWrapper.create(0, senderClientId, targetClientId, packet, null));
+        }
+        this.channel.flush();
     }
 
     public void enableEncryption(@NonNull SecretKey secretKey) {
@@ -178,7 +184,7 @@ public class BedrockPeer extends ChannelInboundHandlerAdapter {
         this.channel.pipeline().get(BedrockPacketCodec.class).setCodec(codec);
     }
 
-    public void close(String reason) {
+    public void close(CharSequence reason) {
         for (BedrockSession session : this.sessions.values()) {
             session.disconnectReason = reason;
         }
@@ -267,6 +273,12 @@ public class BedrockPeer extends ChannelInboundHandlerAdapter {
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
         if (evt instanceof RakDisconnectReason) {
             onRakNetDisconnect(ctx, (RakDisconnectReason) evt);
+        }
+    }
+
+    protected void blackholeInboundPackets() {
+        if (this.channel.pipeline().get(BlackholeInboundAdapter.class) == null) {
+            this.channel.pipeline().addFirst(BlackholeInboundAdapter.NAME, BlackholeInboundAdapter.INSTANCE);
         }
     }
 }

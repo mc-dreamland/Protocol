@@ -91,10 +91,13 @@ public class StartGamePacket implements BedrockPacket {
     private boolean disablingCustomSkins;
     // Level settings end
     private String levelId;
-    private String levelName;
+    private CharSequence levelName;
     private String premiumWorldTemplateId;
     private boolean trial;
     // SyncedPlayerMovementSettings start
+    /**
+     * @deprecated since v818. {@link AuthoritativeMovementMode#SERVER_WITH_REWIND} is now the default movement mode.
+     */
     private AuthoritativeMovementMode authoritativeMovementMode;
     private int rewindHistorySize;
     boolean serverAuthoritativeBlockBreaking;
@@ -139,7 +142,7 @@ public class StartGamePacket implements BedrockPacket {
     /**
      * @since v534
      */
-    private boolean worldEditor;
+    private WorldType editorWorldType = WorldType.NON_EDITOR;
     /**
      * Enables client side chunk generation
      *
@@ -185,6 +188,14 @@ public class StartGamePacket implements BedrockPacket {
      * @since v685
      */
     private String scenarioId;
+    /**
+     * @since v818
+     */
+    private String ownerId;
+    /**
+     * @since v827
+     */
+    private boolean tickDeathSystemsEnabled;
 
     @Override
     public final PacketSignal handle(BedrockPacketHandler handler) {
@@ -202,6 +213,14 @@ public class StartGamePacket implements BedrockPacket {
         } catch (CloneNotSupportedException e) {
             throw new AssertionError(e);
         }
+    }
+
+    public String getLevelName() {
+        return getLevelName(String.class);
+    }
+
+    public <T extends CharSequence> T getLevelName(Class<T> type) {
+        return type.cast(levelName);
     }
 }
 
