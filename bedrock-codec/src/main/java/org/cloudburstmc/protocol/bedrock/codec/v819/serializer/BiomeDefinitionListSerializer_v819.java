@@ -31,8 +31,8 @@ public class BiomeDefinitionListSerializer_v819 extends BiomeDefinitionListSeria
         buffer.writeFloatLE(definition.getScale());
         buffer.writeIntLE(definition.getMapWaterColor().getRGB());
         buffer.writeBoolean(definition.isRain());
-        VarInts.writeInt(buffer, definition.getDimension());
-        helper.writeOptionalNull(buffer, definition.getVanilla(), helper::writeString);
+        buffer.writeIntLE(definition.getDimension());
+        helper.writeString(buffer, definition.getVanilla() == null ? "" : definition.getVanilla());
         helper.writeOptionalNull(buffer, definition.getTags(), (byteBuf, aHelper, tags) -> {
             VarInts.writeUnsignedInt(byteBuf, tags.size());
             for (String tag : tags) {
@@ -57,7 +57,7 @@ public class BiomeDefinitionListSerializer_v819 extends BiomeDefinitionListSeria
         Color mapWaterColor = new Color(buffer.readIntLE(), true);
         boolean rain = buffer.readBoolean();
         int dimension = VarInts.readInt(buffer);
-        String vanilla = helper.readOptional(buffer, null, helper::readString);
+        String vanilla = helper.readOptional(buffer, "", helper::readString);
 
         IndexedList<String> tags = helper.readOptional(buffer, null, byteBuf -> {
             int length = VarInts.readUnsignedInt(byteBuf);
