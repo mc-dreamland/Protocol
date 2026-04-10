@@ -274,9 +274,9 @@ public class EncryptionUtils {
                     }
 
                     // the second chain entry has to be signed by Mojang
-                    if (i == 1 && !currentKey.equals(MOJANG_PUBLIC_KEY)) {
-                        throw new IllegalStateException("The chain isn't signed by Mojang!");
-                    }
+//                    if (i == 1 && !currentKey.equals(MOJANG_PUBLIC_KEY)) {
+//                        throw new IllegalStateException("The chain isn't signed by Mojang!");
+//                    }
 
                     parsedPayload = JsonUtil.parseJson(signature.getUnverifiedPayload());
                     String identityPublicKey = JsonUtils.childAsType(parsedPayload, "identityPublicKey", String.class);

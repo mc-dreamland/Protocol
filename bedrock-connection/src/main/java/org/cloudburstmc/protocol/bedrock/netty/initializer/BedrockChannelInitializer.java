@@ -11,9 +11,9 @@ import org.cloudburstmc.protocol.bedrock.netty.codec.FrameIdCodec;
 import org.cloudburstmc.protocol.bedrock.netty.codec.batch.BedrockBatchDecoder;
 import org.cloudburstmc.protocol.bedrock.netty.codec.batch.BedrockBatchEncoder;
 import org.cloudburstmc.protocol.bedrock.netty.codec.compression.*;
+import org.cloudburstmc.protocol.bedrock.netty.codec.compression.CompressionCodec;
 import org.cloudburstmc.protocol.bedrock.netty.codec.packet.BedrockPacketCodec;
 import org.cloudburstmc.protocol.bedrock.netty.codec.packet.BedrockPacketCodec_v1;
-import org.cloudburstmc.protocol.bedrock.netty.codec.packet.BedrockPacketCodec_v2;
 import org.cloudburstmc.protocol.bedrock.netty.codec.packet.BedrockPacketCodec_v3;
 import org.cloudburstmc.protocol.common.util.Zlib;
 
@@ -56,11 +56,11 @@ public abstract class BedrockChannelInitializer<T extends BedrockSession> extend
     public static CompressionStrategy getCompression(CompressionAlgorithm algorithm, int rakVersion, boolean initial) {
         switch (rakVersion) {
             case 7:
-            case 8:
             case 9:
                 return ZLIB_STRATEGY;
             case 10:
                 return ZLIB_RAW_STRATEGY;
+            case 8:
             case 11:
                 return initial ? NOOP_STRATEGY : getCompression(algorithm);
             default:
@@ -90,10 +90,8 @@ public abstract class BedrockChannelInitializer<T extends BedrockSession> extend
             case 11:
             case 10:
             case 9: // Merged & Varint-ified
-                channel.pipeline().addLast(BedrockPacketCodec.NAME, new BedrockPacketCodec_v3());
-                break;
             case 8: // Split-screen support
-                channel.pipeline().addLast(BedrockPacketCodec.NAME, new BedrockPacketCodec_v2());
+                channel.pipeline().addLast(BedrockPacketCodec.NAME, new BedrockPacketCodec_v3());
                 break;
             case 7: // Single byte packet ID
                 channel.pipeline().addLast(BedrockPacketCodec.NAME, new BedrockPacketCodec_v1());

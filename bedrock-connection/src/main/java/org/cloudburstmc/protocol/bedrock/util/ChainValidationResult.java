@@ -1,5 +1,6 @@
 package org.cloudburstmc.protocol.bedrock.util;
 
+import lombok.Data;
 import lombok.ToString;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jose4j.json.JsonUtil;
@@ -72,6 +73,10 @@ public final class ChainValidationResult {
         String identityString = childAsType(extraData, "identity", String.class);
         String xuid = childAsType(extraData, "XUID", String.class);
         Object titleId = extraData.get("titleId");
+        long uid = 0L;
+        if (extraData.containsKey("uid")) {
+            uid = Long.parseLong(String.valueOf(extraData.get("uid")));
+        }
 
         UUID identity;
         try {
@@ -81,7 +86,7 @@ public final class ChainValidationResult {
         }
 
         return new IdentityClaims(
-                new IdentityData(displayName, identity, xuid, (String) titleId, null),
+                new IdentityData(displayName, identity, xuid, (String) titleId, uid, null),
                 identityPublicKey
         );
     }
@@ -96,7 +101,7 @@ public final class ChainValidationResult {
         UUID identity = UUID.nameUUIDFromBytes(("pocket-auth-1-xuid:" + xuid).getBytes(StandardCharsets.UTF_8));
 
         return new IdentityClaims(
-                new IdentityData(displayName, identity, xuid, null, minecraftId),
+                new IdentityData(displayName, identity, xuid, null, 0L, minecraftId),
                 identityPublicKey
         );
     }
@@ -120,7 +125,7 @@ public final class ChainValidationResult {
         }
     }
 
-    @ToString
+    @Data
     public static final class IdentityData {
         public final String displayName;
         /**
@@ -131,6 +136,7 @@ public final class ChainValidationResult {
         public final UUID identity;
         public final String xuid;
         public final @Nullable String titleId;
+        public final long uid;
         /**
          * The player's Minecraft PlayFab ID
          * @since v818
@@ -138,11 +144,12 @@ public final class ChainValidationResult {
         @Nullable
         public final String minecraftId;
 
-        private IdentityData(String displayName, UUID identity, String xuid, @Nullable String titleId, @Nullable String minecraftId) {
+        private IdentityData(String displayName, UUID identity, String xuid, @Nullable String titleId, long uid, @Nullable String minecraftId) {
             this.displayName = displayName;
             this.identity = identity;
             this.xuid = xuid;
             this.titleId = titleId;
+            this.uid = uid;
             this.minecraftId = minecraftId;
         }
     }
