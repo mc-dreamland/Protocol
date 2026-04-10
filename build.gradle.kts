@@ -7,6 +7,7 @@ plugins {
     id("java-library")
     id("maven-publish")
     id("signing")
+    id ("java")
     alias(libs.plugins.lombok)
 }
 
