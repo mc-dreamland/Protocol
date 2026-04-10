@@ -2,14 +2,14 @@ package org.cloudburstmc.protocol.bedrock.codec.v827.serializer;
 
 import io.netty.buffer.ByteBuf;
 import org.cloudburstmc.protocol.bedrock.codec.BedrockCodecHelper;
-import org.cloudburstmc.protocol.bedrock.codec.v800.serializer.BiomeDefinitionListSerializer_v800;
+import org.cloudburstmc.protocol.bedrock.codec.v819.serializer.BiomeDefinitionListSerializer_v819;
 import org.cloudburstmc.protocol.bedrock.data.biome.BiomeDefinitionData;
 import org.cloudburstmc.protocol.common.util.SequencedHashSet;
 import org.cloudburstmc.protocol.common.util.index.Indexed;
 
 import java.util.List;
 
-public class BiomeDefinitionListSerializer_v827 extends BiomeDefinitionListSerializer_v800 {
+public class BiomeDefinitionListSerializer_v827 extends BiomeDefinitionListSerializer_v819 {
 
     public static final BiomeDefinitionListSerializer_v827 INSTANCE = new BiomeDefinitionListSerializer_v827();
 

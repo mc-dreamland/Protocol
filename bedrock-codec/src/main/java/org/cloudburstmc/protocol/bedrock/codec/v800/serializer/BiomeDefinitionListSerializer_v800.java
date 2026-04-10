@@ -122,7 +122,7 @@ public class BiomeDefinitionListSerializer_v800 implements BedrockPacketSerializ
 
         return new BiomeDefinitionData(id, temperature, downfall, redSporeDensity, blueSporeDensity,
                 ashDensity, whiteAshDensity, depth, scale, mapWaterColor,
-                rain, tags, chunkGenData);
+                rain, 0, null, tags, chunkGenData);
     }
 
     protected void writeDefinitionChunkGen(ByteBuf buffer, BedrockCodecHelper helper, BiomeDefinitionChunkGenData definitionChunkGen,
