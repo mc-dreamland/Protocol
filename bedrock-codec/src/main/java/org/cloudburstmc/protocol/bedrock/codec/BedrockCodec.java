@@ -134,7 +134,7 @@ public final class BedrockCodec {
             Class<? extends BedrockPacket> packetClass = factory.get().getClass();
 
             checkArgument(id >= 0, "id cannot be negative");
-            checkArgument(!packets.containsKey(packetClass), "Packet class already registered");
+            checkArgument(!packets.containsKey(packetClass), "Packet class already registered -> " + packetClass.getName());
 
             BedrockPacketDefinition<T> info = new BedrockPacketDefinition<>(id, factory, serializer, recipient);
 

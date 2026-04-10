@@ -78,6 +78,22 @@ public class PlayerAuthInputPacket implements BedrockPacket {
      */
     private Vector2f rawMoveVector;
 
+    /**
+     * Netease_Only v482
+     */
+    private boolean cameraDeparted;
+
+    /**
+     * Netease_Only
+     */
+    private boolean thirdPersonPerspective;
+    private Vector2f playerRotationToCamera;
+    private boolean readyPosDetalDirty;
+    private boolean onGround;
+    private byte resetPosition;
+
+
+
     @Override
     public PacketSignal handle(BedrockPacketHandler handler) {
         return handler.handle(this);
