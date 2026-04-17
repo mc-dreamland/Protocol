@@ -63,6 +63,7 @@ public class BiomeDefinitionSerializationTest {
 
         ByteBuf buffer = Unpooled.buffer();
         packetDefinition.getSerializer().serialize(buffer, helper, packet);
+        buffer.readerIndex(0);
 
         BiomeDefinitionListPacket deserializedPacket = new BiomeDefinitionListPacket();
         packetDefinition.getSerializer().deserialize(buffer, helper, deserializedPacket);
