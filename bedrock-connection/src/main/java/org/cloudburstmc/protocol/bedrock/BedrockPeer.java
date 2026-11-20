@@ -47,6 +47,8 @@ public class BedrockPeer extends ChannelInboundHandlerAdapter {
 
     public static final String NAME = "bedrock-peer";
 
+    private static final int TICK_INTERVAL = Integer.getInteger("org.cloudburstmc.protocol.bedrock.tickInterval", 17);
+
     private static final InternalLogger log = InternalLoggerFactory.getInstance(BedrockPeer.class);
 
     protected final Int2ObjectMap<BedrockSession> sessions = new Int2ObjectOpenHashMap<>();
@@ -248,7 +250,7 @@ public class BedrockPeer extends ChannelInboundHandlerAdapter {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         this.sessions.put(0, this.sessionFactory.createSession(this, 0));
-        this.tickFuture = this.channel.eventLoop().scheduleAtFixedRate(this::onTick, 50, 50, TimeUnit.MILLISECONDS);
+        this.tickFuture = this.channel.eventLoop().scheduleAtFixedRate(this::onTick, TICK_INTERVAL, TICK_INTERVAL, TimeUnit.MILLISECONDS);
     }
 
     @Override
