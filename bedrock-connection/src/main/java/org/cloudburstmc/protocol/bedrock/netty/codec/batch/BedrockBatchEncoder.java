@@ -1,7 +1,6 @@
 package org.cloudburstmc.protocol.bedrock.netty.codec.batch;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.CompositeByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelOutboundHandlerAdapter;
 import io.netty.channel.ChannelPromise;
@@ -37,7 +36,7 @@ public class BedrockBatchEncoder extends ChannelOutboundHandlerAdapter {
             return;
         }
 
-        CompositeByteBuf buf = ctx.alloc().compositeDirectBuffer(messages.size() * 2);
+        ByteBuf buf = ctx.alloc().directBuffer();
         BedrockBatchWrapper batch = BedrockBatchWrapper.newInstance();
 
         try {
@@ -48,10 +47,9 @@ public class BedrockBatchEncoder extends ChannelOutboundHandlerAdapter {
                     throw new IllegalArgumentException("BedrockPacket is not encoded");
                 }
 
-                ByteBuf header = ctx.alloc().ioBuffer(5);
-                VarInts.writeUnsignedInt(header, message.readableBytes());
-                buf.addComponent(true, header);
-                buf.addComponent(true, message.retain());
+                int length = message.readableBytes();
+                VarInts.writeUnsignedInt(buf, length);
+                buf.writeBytes(message, message.readerIndex(), length);
                 batch.addPacket(packet.retain());
             } finally {
                 packet.release();
