@@ -8,6 +8,7 @@ dependencies {
     api(libs.nbt)
     implementation(libs.jackson.annotations)
     api(libs.msgpack)
+    api(libs.javassist)
     api(libs.gson)
     api(libs.json)
 

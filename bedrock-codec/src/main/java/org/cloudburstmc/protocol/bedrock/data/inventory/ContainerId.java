@@ -50,4 +50,5 @@ public class ContainerId {
      * @deprecated since v748
      */
     public static final int CONTAINER_ID_REGISTRY_INVENTORY = 126;
+    public static final int CONTAINER_ID_PLAYER_NETEASE_UI = 127;
 }

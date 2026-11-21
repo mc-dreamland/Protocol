@@ -41,8 +41,8 @@ import org.cloudburstmc.protocol.common.util.TypeMap;
 public class Bedrock_v504 extends Bedrock_v503 {
 
     protected static final TypeMap<ContainerSlotType> CONTAINER_SLOT_TYPES = Bedrock_v407.CONTAINER_SLOT_TYPES.toBuilder()
-            .shift(15, 1)
-            .insert(15, ContainerSlotType.NULL)
+            .shift(17, 1)
+            .insert(17, ContainerSlotType.NULL)
             .build();
 
     public static final BedrockCodec CODEC = Bedrock_v503.CODEC.toBuilder()

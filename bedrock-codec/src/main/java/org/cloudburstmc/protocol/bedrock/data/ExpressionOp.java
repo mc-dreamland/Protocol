@@ -29,6 +29,8 @@ public enum ExpressionOp {
     LERP_ROTATE,
     LN,
     MAX,
+    OR,
+    AND,
     MIN,
     MIN_ANGLE,
     MOD,

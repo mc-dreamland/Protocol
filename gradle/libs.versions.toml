@@ -4,6 +4,7 @@ netty = "4.1.101.Final"
 jackson = "2.18.0"
 gson = "2.3.1" # Provided by Spigot 1.8.8
 msgpack = "0.6.12"
+javassist = "3.18.1-GA"
 json = "1.1.1"
 adventure = "4.24.0"
 junit = "5.9.2"
@@ -30,6 +31,7 @@ math = { group = "org.cloudburstmc.math", name = "immutable", version = "2.0-SNA
 nbt = { group = "org.cloudburstmc", name = "nbt", version = "3.0.3.Final" }
 lmbda = { group = "org.lanternpowered", name = "lmbda", version = "2.0.0" }
 msgpack = { group = "org.msgpack", name = "msgpack", version.ref = "msgpack" }
+javassist = { group = "org.javassist", name = "javassist", version.ref = "javassist" }
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 json = { group = "com.googlecode.json-simple", name = "json-simple", version.ref = "json" }
 

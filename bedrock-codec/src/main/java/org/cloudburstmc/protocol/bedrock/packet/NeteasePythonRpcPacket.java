@@ -84,22 +84,26 @@ public class NeteasePythonRpcPacket implements BedrockPacket {
         this.setMsgPackBytes(msgPackData);
 
         Value originJson = messagePack.read(msgPackData);
+        this.setJson(originJson);
         Value unConvert = messagePack.unconvert("value");
-        ArrayValue packValue;
-        if (originJson.getType().equals(ValueType.MAP)) {
-            packValue = originJson.asMapValue().get(unConvert).asArrayValue();
-        } else {
-            packValue = originJson.asArrayValue();
+        ArrayValue packValue = getArrayValue(originJson, unConvert);
+        if (packValue == null) {
+            this.clearParsedData();
+            return;
         }
 
-        String eventType = packValue.get(0).toString().replace("\"", "");
+        String eventType = packValue.isEmpty() ? null : packValue.get(0).toString().replace("\"", "");
         this.setEventType(eventType);
 
-        ArrayValue packData;
-        if (packValue.get(1).getType().equals(ValueType.MAP)) {
-            packData = packValue.get(1).asMapValue().get(unConvert).asArrayValue();
-        } else {
-            packData = packValue.get(1).asArrayValue();
+        if (packValue.size() < 2) {
+            this.clearPayloadData();
+            return;
+        }
+
+        ArrayValue packData = getArrayValue(packValue.get(1), unConvert);
+        if (packData == null) {
+            this.clearPayloadData();
+            return;
         }
 
         Gson gson = new Gson();
@@ -126,8 +130,34 @@ public class NeteasePythonRpcPacket implements BedrockPacket {
             this.setEventName(null);
             this.setMsgPackMap(null);
         }
+    }
 
-        this.setJson(originJson);
+    private ArrayValue getArrayValue(Value value, Value mapKey) {
+        if (value == null) {
+            return null;
+        }
+        if (value.getType().equals(ValueType.ARRAY)) {
+            return value.asArrayValue();
+        }
+        if (value.getType().equals(ValueType.MAP)) {
+            Value nestedValue = value.asMapValue().get(mapKey);
+            if (nestedValue != null && nestedValue.getType().equals(ValueType.ARRAY)) {
+                return nestedValue.asArrayValue();
+            }
+        }
+        return null;
+    }
+
+    private void clearParsedData() {
+        this.setEventType(null);
+        this.clearPayloadData();
+    }
+
+    private void clearPayloadData() {
+        this.setModName(null);
+        this.setSystem(null);
+        this.setEventName(null);
+        this.setMsgPackMap(null);
     }
 
     @Override
